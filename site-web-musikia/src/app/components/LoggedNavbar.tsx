@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaFileAlt, FaChevronDown, FaChevronUp, FaSignOutAlt } from 'react-icons/fa';
 
 const navLinks = [
   { title: "Accueil", path: "/" },           
@@ -10,6 +10,38 @@ const navLinks = [
   { title: "IA", path: "/pages/ia" },              
   { title: "Blog", path: "/pages/blog" },
 ];
+
+const AccountMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition duration-300">
+        <FaUser className="mr-2" />
+        Mon Compte
+        {isOpen ? <FaChevronUp className="ml-2" /> : <FaChevronDown className="ml-2" />}
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+          <Link href="/pages/account-info" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <FaUser className="inline mr-2" />
+            Mes informations
+          </Link>
+          <Link href="/pages/transcriptions" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <FaFileAlt className="inline mr-2" />
+            Mes transcriptions
+          </Link>
+          <Link href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <FaSignOutAlt className="inline mr-2" />
+            Déconnexion
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -23,6 +55,10 @@ const Navbar = () => {
     router.push(path);
   };
 
+  const isActiveLink = (path: string) => {
+    return path === "/";
+  };
+
   return (
     <header className="z-50 bg-gray-700 shadow-lg">
       <nav className="container mx-auto px-4 py-4 md:py-6">
@@ -33,14 +69,11 @@ const Navbar = () => {
           <h1 className="hidden md:block text-3xl md:text-4xl text-white font-bold mb-4 md:mb-0">Musikia</h1>
           <div className="hidden md:flex items-center space-x-16">
             {navLinks.map(({ title, path }) => (
-              <Link key={path} href={path} className={`transition duration-300 text-lg ${pathname === path ? 'text-blue-400 font-bold' : 'text-gray-300 hover:text-white'}`}>
+              <Link key={path} href={path} className={`transition duration-300 text-lg ${isActiveLink(path) ? 'text-blue-400 font-bold' : 'text-gray-300 hover:text-white'}`}>
                 {title}
               </Link>
             ))}
-            <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition duration-300">
-              <FaUser className="mr-2" />
-              Compte
-            </Link>
+            <AccountMenu />
           </div>
           <button 
             onClick={toggleNavbar} 
@@ -63,12 +96,15 @@ const Navbar = () => {
                   {navLinks.map(({ title, path }) => (
                     <li key={path}>
                       <Link href={path}>
-                        <button onClick={() => handleLinkClick(path)} className={`block w-full py-3 px-4 text-left transition ${pathname === path ? 'bg-[#22D3EE] text-white font-bold' : 'text-gray-300 hover:bg-gray-700'}`}>
+                        <button onClick={() => handleLinkClick(path)} className={`block w-full py-3 px-4 text-left transition ${isActiveLink(path) ? 'text-blue-400 font-bold' : 'text-gray-300 hover:bg-gray-700'}`}>
                           {title}
                         </button>
                       </Link>
                     </li>
                   ))}
+                  <li>
+                    <AccountMenu />
+                  </li>
                 </ul>
               </nav>
             </div>

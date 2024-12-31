@@ -1,12 +1,13 @@
-import FileUpload from "./components/FileUpload";
-import Footer from "./components/Footer";
-import Navbar from "./components/NavBar";
+import FileUpload from "@/app/components/FileUpload";
+import LoggedFooter from "@/app/components/LoggedFooter";
+import LoggedNavbar from "@/app/components/LoggedNavbar";
+
 
 
 export default function Home() {
   return (
     <section className="bg-gray-100 min-h-screen">
-      <Navbar />
+      <LoggedNavbar />
       <main className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 xl:px-16">
           <div className="mx-auto max-w-4xl lg:text-center">
@@ -47,7 +48,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <Footer />
+      <LoggedFooter />
     </section>
   );
 }
