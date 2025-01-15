@@ -1,4 +1,5 @@
 "use client";
+import '../../globals.css'
 import FileUpload from "@/app/components/FileUpload";
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
@@ -10,8 +11,8 @@ const IAPage = () => {
     <section className="flex flex-col min-h-screen bg-white">
       <Navbar />
       <main className="flex-grow container mx-auto px-4 py-6 bg-white text-gray-900">
-        <h1 className="text-4xl font-bold mb-6 text-center">Notre IA</h1>
-        <p className="text-lg text-center mb-4">
+        <h1 className="text-[var(--h1-color)] text-4xl font-bold mb-6 text-center">Notre IA</h1>
+        <p className="text-[var(--p-color)] text-lg text-center mb-4">
           Téléchargez votre fichier MP3 et laissez notre IA le transcrire en partition pour vous.
         </p>
         <FileUpload />

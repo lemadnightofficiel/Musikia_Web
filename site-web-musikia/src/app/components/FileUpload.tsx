@@ -56,7 +56,7 @@ const FileUpload = () => {
 
   return (
     <div className="col-span-full max-w-2xl mx-auto mt-8">
-      <h2 className="text-2xl font-bold text-center mb-6 text-indigo-600">Convertissez votre fichier MP3 en partition</h2>
+      <h2 className="text-[var(--h2-color)] text-2xl font-bold text-center mb-6">Convertissez votre fichier MP3 en partition</h2>
       <div className="mt-2 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-indigo-300 px-6 py-10 transition-colors duration-300 hover:border-indigo-400" onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
         <div className="text-center">
           {file ? (
@@ -102,8 +102,8 @@ const FileUpload = () => {
 
       {transcription && (
         <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-center text-indigo-600 mb-4">Transcription</h2>
-          <p className="text-center text-gray-700 mb-6">{transcription}</p>
+          <h2 className="text-[var(--h2-color)] text-xl font-semibold text-center mb-4">Transcription</h2>
+          <p className="text-[var(--p-color)] text-center text-gray-700 mb-6">{transcription}</p>
           {partitionUrl && (
             <div className="text-center">
               <a href={partitionUrl} download className="inline-block px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 transition-colors duration-300">

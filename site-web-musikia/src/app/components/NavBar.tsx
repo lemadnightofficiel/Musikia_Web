@@ -30,7 +30,7 @@ const Navbar = () => {
           <Link href="/" className="text-2xl md:text-3xl text-white font-bold hover:text-gray-300 transition mb-4 md:mb-0">
             LOGO
           </Link>
-          <h1 className="hidden md:block text-3xl md:text-4xl text-white font-bold mb-4 md:mb-0">Musikia</h1>
+          <h1 className="hidden md:block text-3xl md:text-4xl text-[var(--h1-color)] font-bold mb-4 md:mb-0">Musikia</h1>
           <div className="hidden md:flex items-center space-x-16">
             {navLinks.map(({ title, path }) => (
               <Link key={path} href={path} className={`transition duration-300 text-lg ${pathname === path ? 'text-blue-400 font-bold' : 'text-gray-300 hover:text-white'}`}>
@@ -42,20 +42,12 @@ const Navbar = () => {
               Compte
             </Link>
           </div>
-          <button 
-            onClick={toggleNavbar} 
-            className="md:hidden w-10 h-10 flex items-center justify-center border border-gray-600 text-white hover:text-gray-300" 
-            aria-label={isNavbarOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          >
+          <button onClick={toggleNavbar} className="md:hidden w-10 h-10 flex items-center justify-center border border-gray-600 text-white hover:text-gray-300" aria-label={isNavbarOpen ? "Fermer le menu" : "Ouvrir le menu"}>
             {isNavbarOpen ? "✕" : "☰"}
           </button>
           <div className={`fixed top-0 right-0 w-full h-full bg-gray-800 transform transition-transform duration-300 ease-in-out ${isNavbarOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden z-50 shadow-lg`}>
             <div className="flex flex-col h-full relative">
-              <button 
-                onClick={toggleNavbar} 
-                className="absolute top-4 right-4 text-2xl text-white hover:text-gray-300" 
-                aria-label="Fermer le menu"
-              >
+              <button onClick={toggleNavbar} className="absolute top-4 right-4 text-2xl text-white hover:text-gray-300" aria-label="Fermer le menu">
                 ✕
               </button>
               <nav className="flex-grow overflow-y-auto pt-16">

@@ -3,19 +3,65 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --h1-color: #ffffff;
+    --h2-color: #ffffff;
+    --h3-color: #ffffff;
+
+    --p-color: #b3b3b3;
+
+    --navbar-bg: #333333;
+    --navbar-text: #ffffff;
+
+    --btn-bg: #ffffff;
+    --btn-text: #ffffff;
+    --btn-hover: #2980b9;
+    --btn-active: #2472a4;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #ededed;
+    --h1-color: #ffffff;
+    --h2-color: #ffffff;
+    --h3-color: #ffffff;
+
+    --p-color: #b3b3b3;
+
+    --navbar-bg: #333333;
+    --navbar-text: #ffffff;
+
+    --btn-bg: #ffffff;
+    --btn-text: #ffffff;
+    --btn-hover: #2980b9;
+    --btn-active: #2472a4;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  h1 { color: var(--h1-color); }
+  h2 { color: var(--h2-color); }
+  h3 { color: var(--h3-color); }
+  p { color: var(--p-color); }
+}
+
+@layer components {
+  .navbar {
+    background-color: var(--navbar-bg);
+    color: var(--navbar-text);
+  }
+
+  .btn {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+  }
+
+  .btn:hover {
+    background-color: var(--btn-hover);
+  }
+
+  .btn:active {
+    background-color: var(--btn-active);
+  }
 }

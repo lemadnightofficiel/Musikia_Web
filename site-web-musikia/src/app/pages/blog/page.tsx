@@ -1,5 +1,6 @@
 "use client";
 
+import '../../globals.css'
 import React, { useState } from "react";
 import Image from "next/image";
 import NavBar from "@/app/components/NavBar";
@@ -99,17 +100,16 @@ const BlogPage = () => {
       <NavBar />
       <main className="flex-grow container mx-auto px-4 py-12">
         <section className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4 text-center">Notre Blog</h1>
-          <p className="text-xl text-gray-600 mb-12 text-center">N'hésitez pas à suivre notre actualité !</p>
-
+          <h1 className="text-[var(--h1-color)] text-4xl font-bold mb-4 text-center">Notre Blog</h1>
+          <p className="text-[var(--p-color)] text-xl mb-12 text-center">N'hésitez pas à suivre notre actualité !</p>
           {selectedPostId === null ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.map((post) => (
                 <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl">
                   <Image src={post.image} alt={post.title} width={400} height={250} className="w-full h-48 object-cover" />
                   <div className="p-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-3">{post.title}</h2>
-                    <p className="text-gray-600 mb-4 line-clamp-3">{post.description}</p>
+                    <h2 className="text-[var(--h2-color)] text-xl font-semibold mb-3">{post.title}</h2>
+                    <p className="text-[var(--p-color)] mb-4 line-clamp-3">{post.description}</p>
                     <div className="flex justify-center">
                       <button  onClick={() => setSelectedPostId(post.id)} className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Lire la suite</button>
                     </div>
@@ -117,20 +117,21 @@ const BlogPage = () => {
                 </article>
               ))}
             </div>
-          ) : (
+          ) : 
+          (
             blogPosts.filter(post => post.id === selectedPostId).map(post => (
               <div key={post.id} className="mt-8 p-6 bg-white rounded-lg shadow-lg max-w-3xl mx-auto">
                 <Image src={post.image} alt={post.title} width={600} height={300} className="w-full h-auto object-cover rounded-lg mb-4" />
-                <h2 className="text-4xl font-bold text-gray-900 mb-4 text-center">{post.title}</h2>
-                <p className="text-gray-600 mb-4 text-center">{post.description}</p>
+                <h2 className="text-[var(--h2-color)] text-4xl font-bold mb-4 text-center">{post.title}</h2>
+                <p className="text-[var(--p-color)] mb-4 text-center">{post.description}</p>
                 <div className="text-gray-800 mb-6">{post.content}</div>
                 <div className="flex justify-between items-center mt-auto">
-                  <p className="font-medium text-gray-900">{post.author}</p>
+                  <p className="text-[var(--p-color)] font-medium">{post.author}</p>
                   <time dateTime={post.date} className="text-sm text-gray-500">
                     {new Date(post.date).toLocaleDateString()}
                   </time>
                 </div>
-                <button onClick={() => setSelectedPostId(null)} className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Fermer</button>
+                <button onClick={() => setSelectedPostId(null)} className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--btn-text)]  mt-4 px-4 py-2 rounded transition">Fermer</button>
               </div>
             ))
           )}

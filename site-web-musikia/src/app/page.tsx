@@ -1,7 +1,7 @@
 import FileUpload from "./components/FileUpload";
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
-
+import './globals.css'
 
 export default function Home() {
   return (
@@ -10,9 +10,9 @@ export default function Home() {
       <main className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 xl:px-16">
           <div className="mx-auto max-w-4xl lg:text-center">
-            <h2 className="text-base font-semibold text-indigo-600">Conversion intelligente</h2>
-            <p className="mt-2 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Transformez vos fichiers MP3 en partitions</p>
-            <p className="mt-6 text-lg lg:text-xl text-gray-600">Musikia utilise l'intelligence artificielle pour convertir vos fichiers audio en partitions musicales précises et détaillées.</p>
+            <h2 className="text-base font-semibold text-[var(--h2-color)]">Conversion intelligente</h2>
+            <p className="mt-2 text-4xl font-semibold tracking-tight text-[var(--p-color)] sm:text-5xl">Transformez vos fichiers MP3 en partitions</p>
+            <p className="mt-6 text-lg lg:text-xl text-[var(--p-color)]">Musikia utilise l'intelligence artificielle pour convertir vos fichiers audio en partitions musicales précises et détaillées.</p>
           </div>
           <FileUpload />
           <div className="mx-auto mt-16 max-w-full sm:mt-20 lg:mt-24 lg:max-w-6xl">
@@ -51,3 +51,4 @@ export default function Home() {
     </section>
   );
 }
+
