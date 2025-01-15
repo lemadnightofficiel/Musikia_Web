@@ -23,7 +23,7 @@ const PresentationPage = () => {
             </p>
             <h2 className="text-[var(--h2-color)] text-2xl font-bold mt-8 mb-4">Fonctionnalités clés :</h2>
             <div className="flex justify-center">
-              <ul className="list-disc list-inside text-left text-gray-600 space-y-2 max-w-md">
+              <ul className="list-disc list-inside text-left text-[var(--p-color)] space-y-2 max-w-md">
                 <li className="flex items-center">
                   <svg className="h-5 w-5 text-indigo-600 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z" />
@@ -43,11 +43,10 @@ const PresentationPage = () => {
                   </svg>
                   Téléchargement instantané de vos partitions.
                 </li>
-                <li className="flex items-center">
-                  <svg className="h-5 w-5 text-indigo-600 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 .587l3.668,7.568,8.332,1.21c .285 .041 .398 .392 .192 .592l -6 .017 ,5 .855 ,1 .419 ,8 .285c .049 .285 - .249 .501 - .496 .368L12 ,18.l897 , -7 .097 ,3.l724c -247.-133.-545.-083.-496.-368.l419.-8285.L0.l587c -.206 -.201 -.093 -.551 ..192 -.592.l332 -.121.L12..587z"/>
-                  </svg>
-                  Support pour plusieurs formats audio à venir.
+                <li className="flex items-center"> 
+                  <svg className="h-5 w-5 text-indigo-600 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"> 
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/> 
+                  </svg> Support pour plusieurs formats audio à venir. 
                 </li>
               </ul>
             </div>
