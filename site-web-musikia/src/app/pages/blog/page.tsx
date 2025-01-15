@@ -105,13 +105,13 @@ const BlogPage = () => {
           {selectedPostId === null ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.map((post) => (
-                <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl">
+                <article key={post.id} className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl flex flex-col h-full">
                   <Image src={post.image} alt={post.title} width={400} height={250} className="w-full h-48 object-cover" />
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-grow">
                     <h2 className="text-[var(--h2-color)] text-xl font-semibold mb-3">{post.title}</h2>
-                    <p className="text-[var(--p-color)] mb-4 line-clamp-3">{post.description}</p>
-                    <div className="flex justify-center">
-                      <button  onClick={() => setSelectedPostId(post.id)} className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">Lire la suite</button>
+                    <p className="text-[var(--p-color)] mb-4 line-clamp-3 flex-grow">{post.description}</p>
+                    <div className="mt-auto">
+                      <button onClick={() => setSelectedPostId(post.id)} className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition w-full">Lire la suite</button>
                     </div>
                   </div>
                 </article>
