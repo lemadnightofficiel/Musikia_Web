@@ -19,11 +19,22 @@ const PasswordField: React.FC<{
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   showPassword: boolean;
   toggleShowPassword: () => void;
-  }> = ({ value, onChange, showPassword, toggleShowPassword }) => {
+}> = ({ value, onChange, showPassword, toggleShowPassword }) => {
   return (
     <div className="relative w-full">
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300 transition duration-200" type={showPassword ? "text" : "password"} value={value} onChange={onChange} aria-label="Mot de passe"/>
-      <button type="button" onClick={toggleShowPassword} className="absolute right-3 top-2 text-gray-600 hover:text-blue-500 transition duration-200" aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}>
+      <input
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300 transition duration-200"
+        type={showPassword ? "text" : "password"}
+        value={value}
+        onChange={onChange}
+        aria-label="Mot de passe"
+      />
+      <button
+        type="button"
+        onClick={toggleShowPassword}
+        className="absolute right-3 top-2 text-gray-600 hover:text-blue-500 transition duration-200"
+        aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
+      >
         {showPassword ? <FaEye /> : <FaEyeSlash />}
       </button>
     </div>
@@ -34,7 +45,7 @@ const PasswordModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (newPassword: string) => void;
-  }> = ({ isOpen, onClose, onSubmit }) => {
+}> = ({ isOpen, onClose, onSubmit }) => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -57,11 +68,21 @@ const PasswordModal: React.FC<{
         <h2 className="text-lg font-bold mb-4">Modifier le Mot de Passe</h2>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-semibold mb-2">Nouveau Mot de Passe</label>
-          <PasswordField value={newPassword} onChange={(e) => setNewPassword(e.target.value)} showPassword={showNewPassword} toggleShowPassword={() => setShowNewPassword(!showNewPassword)}/>
+          <PasswordField
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            showPassword={showNewPassword}
+            toggleShowPassword={() => setShowNewPassword(!showNewPassword)}
+          />
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-semibold mb-2">Confirmer le Mot de Passe</label>
-          <PasswordField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} showPassword={showConfirmPassword} toggleShowPassword={() => setShowConfirmPassword(!showConfirmPassword)}/>
+          <PasswordField
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            showPassword={showConfirmPassword}
+            toggleShowPassword={() => setShowConfirmPassword(!showConfirmPassword)}
+          />
         </div>
         <div className="flex justify-end">
           <button onClick={handleSubmit} className="bg-blue-500 text-white px-4 py-2 rounded mr-2">Valider</button>
@@ -81,6 +102,7 @@ const AccountInfo = () => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingField, setEditingField] = useState<keyof UserInfo | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -105,19 +127,39 @@ const AccountInfo = () => {
                   {key === 'motdepasse' ? 'Mot de passe' : key.charAt(0).toUpperCase() + key.slice(1)}
                 </label>
                 <div className="flex items-center justify-between">
-                  {key === 'motdepasse' ? (
-                    <>
-                      <span className="text-gray-800">••••••••••</span> {/* Masquer le mot de passe par défaut */}
-                      <button onClick={() => setIsModalOpen(true)} className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] ml-2 transition duration-200 p-2 rounded" aria-label={`Modifier ${key}`}>
-                        <FaEdit />
-                      </button>
-                    </>
+                  {editingField === key ? (
+                    <input
+                      type={key === 'motdepasse' ? "password" : "text"}
+                      name={key}
+                      value={value}
+                      onChange={handleChange}
+                      onBlur={() => setEditingField(null)}
+                      className={`border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring focus:ring-blue-300`}
+                    />
                   ) : (
                     <>
-                      <span className="text-gray-800">{value}</span>
-                      <button onClick={() => console.log(`Editing ${key}`)} className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] ml-2 transition duration-200 p-2 rounded" aria-label={`Modifier ${key}`}>
-                        <FaEdit />
-                      </button>
+                      {key === 'motdepasse' ? (
+                        <span className="text-gray-800">••••••••••</span>
+                      ) : (
+                        <span className="text-gray-800">{value}</span>
+                      )}
+                      {key === 'motdepasse' ? (
+                        <button 
+                          onClick={() => setIsModalOpen(true)} 
+                          className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] ml-2 transition duration-200 p-2 rounded"
+                          aria-label={`Modifier ${key}`}
+                        >
+                          <FaEdit />
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={() => setEditingField(key as keyof UserInfo)} 
+                          className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] ml-2 transition duration-200 p-2 rounded"
+                          aria-label={`Modifier ${key}`}
+                        >
+                          <FaEdit />
+                        </button>
+                      )}
                     </>
                   )}
                 </div>
@@ -126,7 +168,12 @@ const AccountInfo = () => {
           </div>
         </div>
       </main>
-      <PasswordModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleUpdatePassword}/>
+      <PasswordModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSubmit={handleUpdatePassword} 
+      />
+
       <LoggedFooter />
     </div>
   );
