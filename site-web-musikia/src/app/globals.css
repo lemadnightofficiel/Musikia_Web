@@ -37,9 +37,12 @@
 }
 
 @layer base {
-
   * {
-    font-family: 'Verdana', sans-serif;
+      font-family: 'Verdana', sans-serif;
+  }
+
+  h1, h2, h3 {
+      font-family: 'Fira Sans', sans-serif;
   }
 
   h1 { color: var(--h1-color); }
