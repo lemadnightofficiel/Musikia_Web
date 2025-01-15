@@ -66,7 +66,7 @@ const RegisterPage = () => {
           </form>
           <p className="mt-4 text-center text-[var(--p-color)]">
             Vous avez déjà un compte ?{" "}
-            <Link href="/pages/login" className="text-indigo-600 underline">Connectez-vous ici</Link>.
+            <Link href="/pages/login" className="text-indigo-600 underline">Connectez-vous</Link>.
           </p>
         </div>
       </main>
