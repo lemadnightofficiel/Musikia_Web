@@ -43,46 +43,17 @@ const RegisterPage = () => {
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md relative">
           <h1 className="text-4xl font-bold mb-6 text-center text-[var(--h1-color)]">Inscription</h1>
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <input 
-              type="text" 
-              placeholder="Nom d'utilisateur" 
-              className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
-              value={username} 
-              onChange={(e) => setUsername(e.target.value)} 
-              required 
-            />
-            <select 
-              value={instrument} 
-              onChange={(e) => setInstrument(e.target.value)} 
-              className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              required
-            >
+            <input type="text" placeholder="Nom d'utilisateur" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+            <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
               <option value="" disabled>Choisissez votre instrument</option>
               <option value="Guitare">Guitare</option>
               <option value="Piano">Piano</option>
               <option value="Batterie">Batterie</option>
               <option value="Violon">Violon</option>
-              <option value="Flûte">Flûte</option>
-              <option value="Saxophone">Saxophone</option>
-              {/* Ajoutez d'autres instruments si nécessaire */}
             </select>
-            <input 
-              type="email" 
-              placeholder="Email" 
-              className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-            />
+            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"  value={email} onChange={(e) => setEmail(e.target.value)} required/>
             <div className="relative mb-4">
-              <input 
-                type={showPassword ? "text" : "password"} 
-                placeholder="Mot de passe" 
-                className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" 
-                required 
-                value={password} 
-                onChange={handlePasswordChange} 
-              />
+              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange}/>
               <button type="button" className="absolute right-3 top-3" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? (
                   <FaEye />
@@ -92,14 +63,7 @@ const RegisterPage = () => {
               </button>
             </div>
             <div className="relative mb-4">
-              <input 
-                type={showConfirmPassword ? "text" : "password"} 
-                placeholder="Confirmer le mot de passe" 
-                className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} 
-                required 
-                value={confirmPassword} 
-                onChange={handleConfirmPasswordChange} 
-              />
+              <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange}/>
               { !passwordMatch && (
                 <p className="text-red-500 text-sm">Les mots de passe ne correspondent pas.</p>
               )}
@@ -117,7 +81,7 @@ const RegisterPage = () => {
           </form>
           <p className="mt-4 text-center text-[var(--p-color)]">
             Vous avez déjà un compte ?{" "}
-            <Link href="/pages/login" className="text-indigo-600 underline">Connectez-vous ici</Link>.
+            <Link href="/pages/login" className="text-indigo-600 underline">Connectez-vous</Link>.
           </p>
         </div>
       </main>
