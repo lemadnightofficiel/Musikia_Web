@@ -14,7 +14,7 @@ export default function Home() {
           <div className="mx-auto max-w-4xl lg:text-center">
             <h2 className="text-[var(--h2-color)] text-base font-semibold">Conversion intelligente</h2>
             <p className="text-[var(--p-color)] mt-2 text-4xl font-semibold tracking-tight sm:text-5xl">Transformez vos fichiers MP3 en partitions</p>
-            <p className="text-[var(--p-color)] mt-6 text-lg lg:text-xl">Musikia utilise l'intelligence artificielle pour convertir vos fichiers audio en partitions musicales précises et détaillées.</p>
+            <p className="text-[var(--p-color)] mt-6 text-lg lg:text-xl">Musikia utilise l&apos;intelligence artificielle pour convertir vos fichiers audio en partitions musicales précises et détaillées.</p>
           </div>
           <FileUpload />
           <div className="mx-auto mt-16 max-w-full sm:mt-20 lg:mt-24 lg:max-w-6xl">

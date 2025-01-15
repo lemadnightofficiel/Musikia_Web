@@ -16,7 +16,7 @@ const PresentationPage = () => {
           </p>
           <div className="mt-6 max-w-3xl mx-auto">
             <p className="text-[var(--p-color)] text-lg mb-4">
-              Musikia utilise l'intelligence artificielle pour analyser vos fichiers audio et générer des partitions détaillées. Que vous soyez musicien, compositeur ou simplement passionné de musique, Musikia rend la transcription musicale accessible à tous.
+              Musikia utilise l&apos;intelligence artificielle pour analyser vos fichiers audio et générer des partitions détaillées. Que vous soyez musicien, compositeur ou simplement passionné de musique, Musikia rend la transcription musicale accessible à tous.
             </p>
             <p className="text-[var(--p-color)] text-lg mb-4">
               Importez simplement vos fichiers MP3, et laissez notre technologie faire le travail. En quelques minutes, vous obtiendrez une partition que vous pourrez télécharger et utiliser dans vos projets musicaux.

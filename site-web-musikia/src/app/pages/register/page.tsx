@@ -17,7 +17,7 @@ const RegisterPage = () => {
             <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required/>
             <input type="password" placeholder="Mot de passe" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required/>
             <button type="submit" className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300">
-              S'inscrire
+              S&apos;inscrire
             </button>
           </form>
           <p className="mt-4 text-center text-[var(--p-color)]">

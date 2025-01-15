@@ -101,7 +101,7 @@ const BlogPage = () => {
       <main className="flex-grow container mx-auto px-4 py-12">
         <section className="max-w-7xl mx-auto">
           <h1 className="text-[var(--h1-color)] text-4xl font-bold mb-4 text-center">Notre Blog</h1>
-          <p className="text-[var(--p-color)] text-xl mb-12 text-center">N'hésitez pas à suivre notre actualité !</p>
+          <p className="text-[var(--p-color)] text-xl mb-12 text-center">N&apos;hésitez pas à suivre notre actualité !</p>
           {selectedPostId === null ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts.map((post) => (

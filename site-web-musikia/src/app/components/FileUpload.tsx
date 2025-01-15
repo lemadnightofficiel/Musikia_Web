@@ -78,7 +78,7 @@ const FileUpload = () => {
           {file ? (
             <p className="text-sm text-indigo-600 mt-2">Fichier sélectionné : {file.name}</p>
           ) : (
-            <p className="text-xs leading-5 text-gray-500 mt-2">MP3 jusqu'à 10MB</p>
+            <p className="text-xs leading-5 text-gray-500 mt-2">MP3 jusqu&apos;à 10MB</p>
           )}
         </div>
       </div>

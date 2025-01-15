@@ -44,7 +44,6 @@ const AccountMenu = () => {
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
 
   const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
   
