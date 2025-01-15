@@ -20,19 +20,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --h1-color: #ffffff;
-    --h2-color: #ffffff;
-    --h3-color: #ffffff;
+    --h1-color: #b3b3b3;
+    --h2-color: #b3b3b3;
+    --h3-color: #b3b3b3;
 
     --p-color: #b3b3b3;
 
-    --navbar-bg: #333333;
-    --navbar-text: #ffffff;
+    --navbar-bg: #b3b3b3;
+    --navbar-text: #b3b3b3;
 
-    --btn-bg: #ffffff;
-    --btn-text: #ffffff;
-    --btn-hover: #2980b9;
-    --btn-active: #2472a4;
+    --btn-bg: #b3b3b3;
+    --btn-text: #b3b3b3;
+    --btn-hover: #b3b3b3;
+    --btn-active: #b3b3b3;
   }
 }
 
