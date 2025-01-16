@@ -1,39 +1,24 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid'); // Importez uuid
+const { v4: uuidv4 } = require('uuid');
+const { createClient } = require('@supabase/supabase-js');
+
 const app = express();
 const PORT = 3001;
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-const db = new sqlite3.Database('./database.db', (err) => {
-    if (err) {
-        console.error('Erreur de connexion à la base de données SQLite', err);
-    } else {
-        console.log('Connecté à la base de données SQLite');
+// Configuration de Supabase
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://hvfufahfjvknzqkqazfz.supabase.co';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh2ZnVmYWhmanZrbnpxa3FhemZ6Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNzAyMzc4OSwiZXhwIjoyMDUyNTk5Nzg5fQ.dxaTtiMs5gMlnE35TYuduo9vqIZ7YYj29jZOtZTfY8s';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-        db.run(`
-            CREATE TABLE IF NOT EXISTS users (
-                uuid VARCHAR(255) PRIMARY KEY,
-                email VARCHAR(80) NOT NULL UNIQUE,
-                instrument VARCHAR(20) NOT NULL,
-                password VARCHAR(50) NOT NULL
-            )
-        `, (err) => {
-            if (err) {
-                console.error('Erreur lors de la création de la table `users`', err);
-            } else {
-                console.log('Table `users` prête à être utilisée');
-            }
-        });
-    }
-});
-
+// Routes
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Serveur en cours d\'exécution.' });
 });
@@ -45,27 +30,42 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     const { email, instrument, password } = req.body;
 
-    db.get('SELECT * FROM users WHERE email = ?', [email], async (err, row) => {
-        if (err) {
-            return res.status(500).json({ error: 'Erreur de base de données' });
+    try {
+        // Vérification si l'utilisateur existe déjà
+        const { data: existingUser, error: selectError } = await supabase
+            .from('users')
+            .select('uuid')
+            .eq('email', email)
+            .single();
+
+        if (selectError && selectError.code !== 'PGRST116') {
+            console.error('Erreur lors de la vérification de l\'utilisateur existant :', selectError);
+            return res.status(500).json({ error: 'Erreur de base de données', details: selectError });
         }
-        if (row) {
+
+        if (existingUser) {
             return res.status(400).json({ error: 'Cet email est déjà utilisé' });
         }
 
+        // Hachage du mot de passe
         const hashedPassword = await bcrypt.hash(password, 10);
         const uuid = uuidv4();
-        db.run(
-            'INSERT INTO users (uuid, email, instrument, password) VALUES (?, ?, ?, ?)',
-            [uuid, email, instrument, hashedPassword],
-            function (err) {
-                if (err) {
-                    return res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur' });
-                }
-                res.status(201).json({ message: 'Utilisateur enregistré avec succès', uuid });
-            }
-        );
-    });
+
+        // Insertion de l'utilisateur
+        const { data: newUser, error: insertError } = await supabase
+            .from('users')
+            .insert([{ uuid, email, instrument, password: hashedPassword }]);
+
+        if (insertError) {
+            console.error('Erreur lors de la création de l\'utilisateur :', insertError);
+            return res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur', details: insertError });
+        }
+
+        res.status(201).json({ message: 'Utilisateur enregistré avec succès', uuid });
+    } catch (err) {
+        console.error('Erreur inattendue :', err);
+        res.status(500).json({ error: 'Erreur inattendue', details: err });
+    }
 });
 
 app.get('/login', (req, res) => {
@@ -75,24 +75,39 @@ app.get('/login', (req, res) => {
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    db.get('SELECT * FROM users WHERE email = ?', [email], async (err, row) => {
-        if (err) {
-            return res.status(500).json({ error: 'Erreur de base de données' });
+    try {
+        // Récupération de l'utilisateur
+        const { data: user, error: selectError } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email)
+            .single();
+
+        if (selectError) {
+            console.error('Erreur lors de la récupération de l\'utilisateur :', selectError);
+            return res.status(500).json({ error: 'Erreur de base de données', details: selectError });
         }
-        if (!row) {
+
+        if (!user) {
             return res.status(400).json({ error: 'Utilisateur non trouvé' });
         }
 
-        const validPassword = await bcrypt.compare(password, row.password);
+        // Vérification du mot de passe
+        const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(401).json({ error: 'Mot de passe incorrect' });
         }
 
-        const accessToken = jwt.sign({ id: row.uuid, email: row.email }, 'secret', { expiresIn: '1h' });
+        // Génération du token JWT
+        const accessToken = jwt.sign({ id: user.uuid, email: user.email }, 'secret', { expiresIn: '1h' });
         res.json({ accessToken });
-    });
+    } catch (err) {
+        console.error('Erreur inattendue :', err);
+        res.status(500).json({ error: 'Erreur inattendue', details: err });
+    }
 });
 
+// Démarrer le serveur
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
