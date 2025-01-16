@@ -8,7 +8,6 @@ import { FaEdit } from 'react-icons/fa';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 type UserInfo = {
-  nom: string;
   email: string;
   motdepasse: string;
   instrument: string;
@@ -80,7 +79,6 @@ const PasswordModal: React.FC<{
 
 const AccountInfo = () => {
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    nom: 'John Doe',
     email: 'john.doe@example.com',
     motdepasse: 'eoedkoed777@',
     instrument: 'Guitare'

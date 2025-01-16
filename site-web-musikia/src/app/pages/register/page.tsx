@@ -6,9 +6,8 @@ import Link from "next/link";
 import Navbar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+0
 const RegisterPage = () => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [instrument, setInstrument] = useState('');
   const [password, setPassword] = useState('');
@@ -33,7 +32,7 @@ const RegisterPage = () => {
       setPasswordMatch(false);
       return;
     }
-    console.log("Form submitted:", { username, email, instrument, password });
+    console.log("Form submitted:", { email, instrument, password });
   };
 
   return (
@@ -43,7 +42,6 @@ const RegisterPage = () => {
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md relative">
           <h1 className="text-4xl font-bold mb-6 text-center text-[var(--h1-color)]">Inscription</h1>
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <input type="text" placeholder="Nom d'utilisateur" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={username} onChange={(e) => setUsername(e.target.value)} required/>
             <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
               <option value="" disabled>Choisissez votre instrument</option>
               <option value="Guitare">Guitare</option>
