@@ -9,6 +9,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 
 const RegisterPage = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [instrument, setInstrument] = useState('');
@@ -56,6 +57,7 @@ const RegisterPage = () => {
         setError(data.error || 'Une erreur s\'est produite lors de l\'inscription');
         setSuccess(null);
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setError('Erreur de connexion au serveur');
       setSuccess(null);
