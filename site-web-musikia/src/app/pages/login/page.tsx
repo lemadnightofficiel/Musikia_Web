@@ -38,6 +38,7 @@ const LoginPage: React.FC = () => {
       } else {
         setError(data.error || 'Une erreur s\'est produite lors de la connexion');
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setError('Une erreur s\'est produite lors de la connexion');
     }
