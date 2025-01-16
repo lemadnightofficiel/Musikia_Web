@@ -19,8 +19,8 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null); // État pour gérer les erreurs
-  const [successMessage, setSuccessMessage] = useState<string | null>(null); // État pour gérer le message de succès
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -99,7 +99,7 @@ const RegisterPage = () => {
           </form>
           <p className="mt-4 text-center text-[var(--p-color)]">
             Vous avez déjà un compte ?{" "}
-            <Link href="/pages/login" className="text-indigo-600 underline">Connectez-vous ici</Link>.
+            <Link href="/pages/login" className="text-indigo-600 underline">Connectez-vous</Link>.
           </p>
         </div>
       </main>
