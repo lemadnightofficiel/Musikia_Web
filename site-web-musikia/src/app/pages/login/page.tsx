@@ -1,11 +1,13 @@
 "use client";
-import '../../globals.css'
+
+import '../../globals.css';
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { supabase } from '../../../../initSupabase';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -22,24 +24,17 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    try {
-      const response = await fetch('http://localhost:3001/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    const { error: loginError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('accessToken', data.accessToken);
-        router.push('../pages/ia');
-      } else {
-        setError(data.error || 'Une erreur s\'est produite lors de la connexion');
-      }
-    } catch (error) {
-      setError('Une erreur s\'est produite lors de la connexion');
+    if (loginError) {
+      console.error('Erreur lors de la connexion:', loginError);
+      setError(loginError.message);
+    } else {
+      alert('Connexion réussie !');
+      router.push('/pages/home');
     }
   };
 
@@ -51,11 +46,11 @@ const LoginPage: React.FC = () => {
           <h1 className="text-4xl text-[var(--h1-color)] font-bold mb-6 text-center">Connexion</h1>
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800" required value={email} onChange={(e) => setEmail(e.target.value)}/>
-            <div className="relative">
-              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800" required value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+            <div className="relative mb-4">
+              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800" value={password} onChange={(e) => setPassword(e.target.value)} required/>
               <button type="button" className="absolute right-3 top-2.5" onClick={() => setShowPassword(!showPassword)}>
-                 {showPassword ? <FaEye /> : <FaEyeSlash />}
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
             <button type="submit" className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--btn-text)] py-2 px-4 rounded transition duration-300">
@@ -70,7 +65,7 @@ const LoginPage: React.FC = () => {
       </main>
       <Footer />
     </div>
-  );
+   );
 };
 
 export default LoginPage;
