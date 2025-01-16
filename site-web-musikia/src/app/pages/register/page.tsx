@@ -6,6 +6,7 @@ import Link from "next/link";
 import Navbar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import router from 'next/router';
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -26,23 +27,24 @@ const RegisterPage = () => {
     setPasswordMatch(e.target.value === password);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    if (!regex.test(password)) {
-      alert("Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.");
-       return;
-     }
- 
-    if (password !== confirmPassword) {
-      setPasswordMatch(false);
-      return;
-    }
+  if (!regex.test(password)) {
+    alert("Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.");
+    return;
+  }
 
-    console.log("Form submitted:", { email, instrument, password });
-  };
+  if (password !== confirmPassword) {
+    setPasswordMatch(false);
+    return;
+  }
+
+  console.log("Form submitted:", { email, instrument, password });
+  router.push('../pages/home');
+};
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
@@ -71,9 +73,13 @@ const RegisterPage = () => {
             </div>
             <div className="relative mb-4">
               <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange}/>
+              { !regex.test(password) && (
+                <p className="text-red-500 text-sm mt-3 mb-3 ">Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.</p>
+              )}
               { !passwordMatch && (
                 <p className="text-red-500 text-sm">Les mots de passe ne correspondent pas.</p>
               )}
+             
               <button type="button" className="absolute right-3 top-3" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                 {showConfirmPassword ? (
                   <FaEye />
@@ -85,6 +91,7 @@ const RegisterPage = () => {
             <button type="submit" className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300">
               S&apos;inscrire
             </button>
+           
           </form>
           <p className="mt-4 text-center text-[var(--p-color)]">
             Vous avez déjà un compte ?{" "}
