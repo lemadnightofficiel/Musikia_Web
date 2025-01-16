@@ -24,7 +24,7 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    const { error: loginError } = await supabase.auth.signInWithPassword({
+    const { data, error: loginError } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -33,6 +33,7 @@ const LoginPage: React.FC = () => {
       console.error('Erreur lors de la connexion:', loginError);
       setError(loginError.message);
     } else {
+      console.log('Connexion réussie', data);
       alert('Connexion réussie !');
       router.push('/pages/home');
     }
@@ -65,7 +66,7 @@ const LoginPage: React.FC = () => {
       </main>
       <Footer />
     </div>
-   );
+  );
 };
 
 export default LoginPage;

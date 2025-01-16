@@ -40,7 +40,7 @@ const RegisterPage = () => {
       return;
     }
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -105,7 +105,7 @@ const RegisterPage = () => {
       </main>
       <Footer />
     </div>
-   );
+  );
 };
 
 export default RegisterPage;
