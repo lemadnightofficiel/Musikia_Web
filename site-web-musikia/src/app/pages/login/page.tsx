@@ -29,12 +29,25 @@ const LoginPage: React.FC = () => {
       password,
     });
 
+<<<<<<< HEAD
     if (loginError) {
       console.error('Erreur lors de la connexion:', loginError);
       setError(loginError.message);
     } else {
       alert('Connexion réussie !');
       router.push('/pages/home');
+=======
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('accessToken', data.accessToken);
+        router.push('../pages/ia');
+      } else {
+        setError(data.error || 'Une erreur s\'est produite lors de la connexion');
+      }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      setError('Une erreur s\'est produite lors de la connexion');
+>>>>>>> cef452d3b54d2ba22513b5331519c74cc2c9ed68
     }
   };
 

@@ -19,6 +19,8 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null); // État pour gérer les erreurs
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); // État pour gérer le message de succès
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -45,9 +47,11 @@ const RegisterPage = () => {
 
     if (error) {
       console.error('Erreur lors de l\'inscription:', error);
-      alert(error.message);
+      setError(error.message);
+      setSuccessMessage(null);
     } else {
-      alert('Inscription réussie !');
+      setSuccessMessage('Inscription réussie !');
+      setError(null);
       router.push('/pages/home');
     }
   };
@@ -58,6 +62,8 @@ const RegisterPage = () => {
       <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md relative">
           <h1 className="text-4xl font-bold mb-6 text-center text-[var(--h1-color)]">Inscription</h1>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          {successMessage && <p className="text-green-500 text-center mb-4">{successMessage}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required/>
             <div className="relative mb-4">
