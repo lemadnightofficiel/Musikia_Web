@@ -3,16 +3,67 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
 import { FaUser, FaFileAlt, FaChevronDown, FaChevronUp, FaSignOutAlt } from 'react-icons/fa';
+import { IconType } from 'react-icons';
 
-const navLinks = [
+interface NavLink {
+  title: string;
+  path: string;
+}
+
+interface AccountLink extends NavLink {
+  icon: IconType;
+}
+
+const navLinks: NavLink[] = [
   { title: "Accueil", path: "/" },           
   { title: "Présentation", path: "/pages/intro" },
   { title: "IA", path: "/pages/ia" },              
   { title: "Blog", path: "/pages/blog" },
 ];
 
-const AccountMenu = () => {
+const accountLinks: AccountLink[] = [
+  { title: "Mes informations", path: "/pages/account-info", icon: FaUser },
+  { title: "Mes transcriptions", path: "/pages/transcriptions", icon: FaFileAlt },
+];
+
+interface AccountMenuProps {
+  isMobile?: boolean;
+}
+
+const AccountMenu: React.FC<AccountMenuProps> = ({ isMobile = false }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLinkClick = (path: string) => {
+    setIsOpen(false);
+    router.push(path);
+  };
+
+  if (isMobile) {
+    return (
+      <div className="py-2">
+        <button onClick={() => setIsOpen(!isOpen)} className="flex items-center w-full text-gray-300 hover:bg-gray-700 px-4 py-2 rounded transition duration-300">
+          <FaUser className="mr-2" />
+          Mon Compte
+          {isOpen ? <FaChevronUp className="ml-auto" /> : <FaChevronDown className="ml-auto" />}
+        </button>
+        {isOpen && (
+          <div className="pl-4 mt-2 space-y-2">
+            {accountLinks.map(({ title, path, icon: Icon }) => (
+              <button key={path} onClick={() => handleLinkClick(path)} className="flex items-center w-full text-gray-300 hover:bg-gray-700 px-4 py-2 rounded transition duration-300">
+                <Icon className="mr-2" />
+                {title}
+              </button>
+            ))}
+            <button onClick={() => handleLinkClick("/")} className="flex items-center w-full text-gray-300 hover:bg-gray-700 px-4 py-2 rounded transition duration-300">
+              <FaSignOutAlt className="mr-2" />
+              Déconnexion
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -23,14 +74,12 @@ const AccountMenu = () => {
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-          <Link href="/pages/account-info" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <FaUser className="inline mr-2" />
-            Mes informations
-          </Link>
-          <Link href="/pages/transcriptions" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <FaFileAlt className="inline mr-2" />
-            Mes transcriptions
-          </Link>
+          {accountLinks.map(({ title, path, icon: Icon }) => (
+            <Link key={path} href={path} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <Icon className="inline mr-2" />
+              {title}
+            </Link>
+          ))}
           <Link href="/" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <FaSignOutAlt className="inline mr-2" />
             Déconnexion
@@ -41,7 +90,7 @@ const AccountMenu = () => {
   );
 };
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const router = useRouter();
 
@@ -92,7 +141,7 @@ const Navbar = () => {
                     </li>
                   ))}
                   <li>
-                    <AccountMenu />
+                    <AccountMenu isMobile={true} />
                   </li>
                 </ul>
               </nav>
