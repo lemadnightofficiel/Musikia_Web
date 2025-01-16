@@ -6,8 +6,11 @@ import Link from "next/link";
 import Navbar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import { supabase } from '../../../../initSupabase';
 
 const RegisterPage = () => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [instrument, setInstrument] = useState('');
   const [password, setPassword] = useState('');
@@ -15,8 +18,9 @@ const RegisterPage = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -30,32 +34,25 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (password !== confirmPassword) {
       setPasswordMatch(false);
       return;
     }
-  
-    try {
-      const response = await fetch('http://localhost:3001/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, instrument, password }),
-      });
-  
-      const data = await response.json();
-      if (response.ok) {
-        setSuccess(data.message);
-        setError(null);
-      } else {
-        setError(data.error || 'Une erreur s\'est produite lors de l\'inscription');
-        setSuccess(null);
-      }
-    } catch (error) {
-      setError('Erreur de connexion au serveur');
-      setSuccess(null);
+
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error('Erreur lors de l\'inscription:', error);
+      setError(error.message);
+      setSuccessMessage(null);
+    } else {
+      setSuccessMessage('Inscription réussie !');
+      setError(null);
+      router.push('/pages/home');
     }
   };
 
@@ -66,8 +63,29 @@ const RegisterPage = () => {
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md relative">
           <h1 className="text-4xl font-bold mb-6 text-center text-[var(--h1-color)]">Inscription</h1>
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-          {success && <p className="text-green-500 text-center mb-4">{success}</p>}
+          {successMessage && <p className="text-green-500 text-center mb-4">{successMessage}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
+            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+            <div className="relative mb-4">
+              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange} onFocus={() => setShowPasswordRequirements(true)} onBlur={() => setShowPasswordRequirements(false)}/>
+              <button type="button" className="absolute right-3 top-3" onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+            {showPasswordRequirements && (
+              <p className="text-red-500 text-sm mb-2">
+                Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.
+              </p>
+            )}
+            <div className="relative mb-4">
+              <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange}/>
+              {!passwordMatch && (
+                <p className="text-red-500 text-sm">Les mots de passe ne correspondent pas.</p>
+              )}
+              <button type="button" className="absolute right-3 top-3" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
             <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
               <option value="" disabled>Choisissez votre instrument</option>
               <option value="Guitare">Guitare</option>
@@ -75,20 +93,6 @@ const RegisterPage = () => {
               <option value="Batterie">Batterie</option>
               <option value="Violon">Violon</option>
             </select>
-            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <div className="relative mb-4">
-              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange} />
-              <button type="button" className="absolute right-3 top-3" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <FaEye /> : <FaEyeSlash />}
-              </button>
-            </div>
-            <div className="relative mb-4">
-              <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange} />
-              {!passwordMatch && <p className="text-red-500 text-sm">Les mots de passe ne correspondent pas.</p>}
-              <button type="button" className="absolute right-3 top-3" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
-              </button>
-            </div>
             <button type="submit" className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300">
               S&apos;inscrire
             </button>
