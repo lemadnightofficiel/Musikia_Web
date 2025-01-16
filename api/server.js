@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid'); // Importez uuid
+const { v4: uuidv4 } = require('uuid');
 const app = express();
 const PORT = 3001;
 
