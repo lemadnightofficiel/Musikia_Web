@@ -6,7 +6,7 @@ import Link from "next/link";
 import Navbar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-0
+
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [instrument, setInstrument] = useState('');
@@ -28,10 +28,19 @@ const RegisterPage = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!regex.test(password)) {
+      alert("Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.");
+       return;
+     }
+ 
     if (password !== confirmPassword) {
       setPasswordMatch(false);
       return;
     }
+
     console.log("Form submitted:", { email, instrument, password });
   };
 
