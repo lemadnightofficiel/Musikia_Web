@@ -18,6 +18,8 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [showPasswordRequirements, setShowPasswordRequirements] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -29,14 +31,35 @@ const RegisterPage = () => {
     setPasswordMatch(e.target.value === password);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
     if (password !== confirmPassword) {
       setPasswordMatch(false);
       return;
     }
-    console.log("Form submitted:", { email, instrument, password });
-    router.push('/pages/home');
+  
+    try {
+      const response = await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, instrument, password }),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        setSuccess(data.message);
+        setError(null);
+      } else {
+        setError(data.error || 'Une erreur s\'est produite lors de l\'inscription');
+        setSuccess(null);
+      }
+    } catch (error) {
+      setError('Erreur de connexion au serveur');
+      setSuccess(null);
+    }
   };
 
   return (
@@ -45,6 +68,8 @@ const RegisterPage = () => {
       <main className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md relative">
           <h1 className="text-4xl font-bold mb-6 text-center text-[var(--h1-color)]">Inscription</h1>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+          {success && <p className="text-green-500 text-center mb-4">{success}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required/>
             <div className="relative mb-4">

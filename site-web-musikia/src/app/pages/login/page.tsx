@@ -13,14 +13,32 @@ const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegex.test(email) && password.length > 0) {
-      localStorage.setItem('isLoggedIn', 'true');
-      router.push('../pages/home');
-    } else {
+    if (!emailRegex.test(email) || password.length === 0) {
       setError('Veuillez entrer une adresse e-mail valide et un mot de passe');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('accessToken', data.accessToken);
+        router.push('../pages/ia');
+      } else {
+        setError(data.error || 'Une erreur s\'est produite lors de la connexion');
+      }
+    } catch (error) {
+      setError('Une erreur s\'est produite lors de la connexion');
     }
   };
 
