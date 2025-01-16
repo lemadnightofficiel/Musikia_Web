@@ -42,13 +42,6 @@ const RegisterPage = () => {
         <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md relative">
           <h1 className="text-4xl font-bold mb-6 text-center text-[var(--h1-color)]">Inscription</h1>
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-              <option value="" disabled>Choisissez votre instrument</option>
-              <option value="Guitare">Guitare</option>
-              <option value="Piano">Piano</option>
-              <option value="Batterie">Batterie</option>
-              <option value="Violon">Violon</option>
-            </select>
             <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"  value={email} onChange={(e) => setEmail(e.target.value)} required/>
             <div className="relative mb-4">
               <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange}/>
@@ -73,6 +66,13 @@ const RegisterPage = () => {
                 )}
               </button>
             </div>
+              <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                <option value="" disabled>Choisissez votre instrument</option>
+                <option value="Guitare">Guitare</option>
+                <option value="Piano">Piano</option>
+                <option value="Batterie">Batterie</option>
+                <option value="Violon">Violon</option>
+              </select>
             <button type="submit" className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300">
               S&apos;inscrire
             </button>
