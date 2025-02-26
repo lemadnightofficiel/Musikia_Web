@@ -18,7 +18,7 @@ const navLinks: NavLink[] = [
   { title: "Accueil", path: "/" },           
   { title: "Présentation", path: "/pages/intro" },
   { title: "IA", path: "/pages/ia" },              
-  { title: "Blog", path: "/pages/blog" },
+  { title: "Abonnements", path: "/pages/suscriptions" },
 ];
 
 const accountLinks: AccountLink[] = [
