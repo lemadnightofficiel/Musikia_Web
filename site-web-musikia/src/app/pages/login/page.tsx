@@ -8,6 +8,7 @@ import Navbar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { supabase } from '../../../../initSupabase';
+import bcrypt from 'bcryptjs';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -18,25 +19,39 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email) || password.length === 0) {
       setError('Veuillez entrer une adresse e-mail valide et un mot de passe');
       return;
     }
 
-    const { data, error: loginError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error: userError } = await supabase
+        .from('users')
+        .select('email, password')
+        .eq('email', email)
+        .single();
 
-    if (loginError) {
-      console.error('Erreur lors de la connexion:', loginError);
-      setError(loginError.message);
-    } else {
+      if (userError || !data) {
+        setError('Identifiants incorrects.');
+        return;
+      }
+
+      const passwordMatch = await bcrypt.compare(password, data.password);
+      if (!passwordMatch) {
+        setError('Identifiants incorrects.');
+        return;
+      }
+
       console.log('Connexion réussie', data);
       alert('Connexion réussie !');
       router.push('/pages/home');
+    } catch (err) {
+      console.error('Erreur inattendue:', err);
+      setError('Une erreur inattendue s\'est produite. Veuillez réessayer.');
     }
+
   };
 
   return (
@@ -47,14 +62,31 @@ const LoginPage: React.FC = () => {
           <h1 className="text-4xl text-[var(--h1-color)] font-bold mb-6 text-center">Connexion</h1>
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+            <input
+              type="email"
+              placeholder="Email"
+              className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
             <div className="relative mb-4">
-              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Mot de passe"
+                className="border border-gray-300 rounded p-2 mb-4 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-800"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
               <button type="button" className="absolute right-3 top-2.5" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
-            <button type="submit" className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--btn-text)] py-2 px-4 rounded transition duration-300">
+            <button
+              type="submit"
+              className="bg-[var(--btn-bg)] hover:bg-[var(--btn-hover)] text-[var(--btn-text)] py-2 px-4 rounded transition duration-300"
+            >
               Se connecter
             </button>
           </form>

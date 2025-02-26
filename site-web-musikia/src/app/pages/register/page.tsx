@@ -8,6 +8,7 @@ import Footer from "@/app/components/Footer";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../../../initSupabase';
+import bcrypt from 'bcryptjs';
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -40,19 +41,29 @@ const RegisterPage = () => {
       return;
     }
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const { data, error } = await supabase.from('users').insert([
+        {
+          uuid: crypto.randomUUID(), // Génération d'un UUID unique
+          email,
+          instrument,
+          password: hashedPassword,
+        },
+      ]);
 
-    if (error) {
-      console.error('Erreur lors de l\'inscription:', error);
-      setError(error.message);
-      setSuccessMessage(null);
-    } else {
-      setSuccessMessage('Inscription réussie !');
-      setError(null);
-      router.push('/pages/home');
+      if (error) {
+        console.error("Erreur lors de l'inscription:", error);
+        setError(error.message);
+        setSuccessMessage(null);
+      } else {
+        setSuccessMessage("Inscription réussie !");
+        setError(null);
+        router.push('/pages/home');
+      }
+    } catch (err) {
+      console.error("Erreur inattendue :", err);
+      setError("Une erreur inattendue s'est produite. Veuillez réessayer.");
     }
   };
 
@@ -65,9 +76,9 @@ const RegisterPage = () => {
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           {successMessage && <p className="text-green-500 text-center mb-4">{successMessage}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <div className="relative mb-4">
-              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange} onFocus={() => setShowPasswordRequirements(true)} onBlur={() => setShowPasswordRequirements(false)}/>
+              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange} onFocus={() => setShowPasswordRequirements(true)} onBlur={() => setShowPasswordRequirements(false)} />
               <button type="button" className="absolute right-3 top-3" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
@@ -78,7 +89,7 @@ const RegisterPage = () => {
               </p>
             )}
             <div className="relative mb-4">
-              <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange}/>
+              <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange} />
               {!passwordMatch && (
                 <p className="text-red-500 text-sm">Les mots de passe ne correspondent pas.</p>
               )}
