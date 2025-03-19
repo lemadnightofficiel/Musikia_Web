@@ -3,19 +3,24 @@
 @tailwind utilities;
 
 :root {
+    --primary-color: #1a1a1a;
+    --secondary-color: #e6e6e6;
+    --accent-color: #cc0000;
+    
     --h1-color: #ffffff;
-    --h2-color: #ffffff;
-    --h3-color: #ffffff;
+    --h2-color: #333333;
+    --p-color: #4d4d4d;
 
-    --p-color: #b3b3b3;
+    --navbar-bg: #e6e6e6;
+    --navbar-text: #333333;
 
-    --navbar-bg: #333333;
-    --navbar-text: #ffffff;
-
-    --btn-bg: #ffffff;
-    --btn-text: #ffffff;
-    --btn-hover: #2980b9;
-    --btn-active: #2472a4;
+    --btn-primary-bg: #cc0000;
+    --btn-primary-text: #ffffff;
+    --btn-primary-hover: #aa0000;
+    
+    --card-bg: #f0f0f0;
+    --card-icon-bg: #cc0000;
+    --card-icon-text: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,16 +43,21 @@
 
 @layer base {
   * {
-      font-family: 'Verdana', sans-serif;
+      font-family: 'Arial', sans-serif;
+  }
+
+  body {
+      background-color: var(--secondary-color);
   }
 
   h1, h2, h3 {
-      font-family: 'Fira Sans', sans-serif;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
   }
 
-  h1 { color: var(--h1-color); }
+  h1 { color: var(--h2-color); }
   h2 { color: var(--h2-color); }
-  h3 { color: var(--h3-color); }
+  h3 { color: var(--h2-color); }
   p { color: var(--p-color); }
 }
 
@@ -57,19 +67,37 @@
     color: var(--navbar-text);
   }
 
-  .btn {
-    background-color: var(--btn-bg);
-    color: var(--btn-text);
-    padding: 0.5rem 1rem;
+  .btn-primary {
+    background-color: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    padding: 0.5rem 1.5rem;
     border-radius: 0.25rem;
+    font-weight: bold;
     transition: background-color 0.2s;
   }
 
-  .btn:hover {
-    background-color: var(--btn-hover);
+  .btn-primary:hover {
+    background-color: var(--btn-primary-hover);
   }
 
-  .btn:active {
-    background-color: var(--btn-active);
+  .feature-card {
+    background-color: var(--card-bg);
+    border-radius: 0.25rem;
+    padding: 1.5rem;
+    position: relative;
+  }
+
+  .feature-icon {
+    background-color: var(--card-icon-bg);
+    color: var(--card-icon-text);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
   }
 }

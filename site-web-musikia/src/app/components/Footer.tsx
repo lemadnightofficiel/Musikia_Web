@@ -1,16 +1,30 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-4">
+    <footer className="bg-gray-200 py-6">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center">
-          <h2 className="text-base font-semibold">Musikia</h2>
-          <p className="mt-1 text-xs">Transformez vos fichiers audio en partitions musicales.</p>
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="mb-4 md:mb-0">
+            <h2 className="text-lg font-semibold text-gray-800">Musikia</h2>
+            <p className="text-sm text-gray-600">Transformez vos fichiers audio en partitions musicales</p>
+          </div>
+          <div className="flex space-x-6">
+            <Link href="/pages/mentions-legales" className="text-sm text-gray-600 hover:text-gray-900">
+              Mentions légales
+            </Link>
+            <Link href="/pages/confidentialite" className="text-sm text-gray-600 hover:text-gray-900">
+              Politique de confidentialité
+            </Link>
+            <Link href="/pages/contact" className="text-sm text-gray-600 hover:text-gray-900">
+              Contact
+            </Link>
+          </div>
         </div>
-        <hr className="my-2 border-gray-700" />
-        <p className="text-center text-xs">© {new Date().getFullYear()} Musikia. Tous droits réservés.</p>
+        <hr className="my-4 border-gray-300" />
+        <p className="text-center text-xs text-gray-600"> {new Date().getFullYear()} Musikia. Tous droits réservés.</p>
       </div>
     </footer>
   );

@@ -2,13 +2,11 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
-import { FaUser } from "react-icons/fa";
 
 const navLinks = [
   { title: "Accueil", path: "/" },           
-  { title: "Présentation", path: "/pages/intro" },
   { title: "IA", path: "/pages/ia" },              
-  { title: "Abonnements", path: "/pages/suscriptions" },
+  { title: "Blog", path: "/pages/blog" },
 ];
 
 const Navbar = () => {
@@ -24,30 +22,39 @@ const Navbar = () => {
   };
 
   return (
-    <header className="z-50 bg-gray-700 shadow-lg">
-      <nav className="container mx-auto px-4 py-4 md:py-6">
-        <section className="flex flex-col md:flex-row items-center justify-between">
-          <Link href="/" className="text-2xl md:text-3xl text-white font-bold hover:text-gray-300 transition mb-4 md:mb-0">
-            LOGO
-          </Link>
-          <h1 className="hidden md:block text-3xl md:text-4xl text-[var(--h1-color)] font-bold mb-4 md:mb-0">Musikia</h1>
-          <div className="hidden md:flex items-center space-x-16">
+    <header className="z-50 bg-[var(--navbar-bg)] shadow-sm">
+      <nav className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <Link href="/" className="flex items-center">
+              <div className="bg-blue-700 text-white font-bold py-2 px-4">
+                Logo
+              </div>
+            </Link>
+            <div className="hidden md:block text-center text-xl font-semibold text-gray-700">
+              Musikia
+            </div>
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map(({ title, path }) => (
-              <Link key={path} href={path} className={`transition duration-300 text-lg ${pathname === path ? 'text-blue-400 font-bold' : 'text-gray-300 hover:text-white'}`}>
+              <Link key={path} href={path} className={`text-sm ${pathname === path ? 'text-gray-900 font-semibold' : 'text-gray-600 hover:text-gray-900'}`}>
                 {title}
               </Link>
             ))}
-            <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition duration-300">
-              <FaUser className="mr-2" />
-              Compte
+            <Link href="/pages/login" className="bg-[var(--btn-primary-bg)] text-white font-medium py-1 px-4 rounded">
+              Profils
             </Link>
           </div>
-          <button onClick={toggleNavbar} className="md:hidden w-10 h-10 flex items-center justify-center border border-gray-600 text-white hover:text-gray-300" aria-label={isNavbarOpen ? "Fermer le menu" : "Ouvrir le menu"}>
+          
+          <button onClick={toggleNavbar} className="md:hidden w-10 h-10 flex items-center justify-center text-gray-700" aria-label={isNavbarOpen ? "Fermer le menu" : "Ouvrir le menu"}>
             {isNavbarOpen ? "✕" : "☰"}
           </button>
-          <div className={`fixed top-0 right-0 w-full h-full bg-gray-800 transform transition-transform duration-300 ease-in-out ${isNavbarOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden z-50 shadow-lg`}>
+          
+          {/* Menu mobile */}
+          <div className={`fixed top-0 right-0 w-full h-full bg-white transform transition-transform duration-300 ease-in-out ${isNavbarOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden z-50 shadow-lg`}>
             <div className="flex flex-col h-full relative">
-              <button onClick={toggleNavbar} className="absolute top-4 right-4 text-2xl text-white hover:text-gray-300" aria-label="Fermer le menu">
+              <button onClick={toggleNavbar} className="absolute top-4 right-4 text-2xl text-gray-700" aria-label="Fermer le menu">
                 ✕
               </button>
               <nav className="flex-grow overflow-y-auto pt-16">
@@ -55,17 +62,24 @@ const Navbar = () => {
                   {navLinks.map(({ title, path }) => (
                     <li key={path}>
                       <Link href={path}>
-                        <button onClick={() => handleLinkClick(path)} className={`block w-full py-3 px-4 text-left transition ${pathname === path ? 'bg-[#22D3EE] text-white font-bold' : 'text-gray-300 hover:bg-gray-700'}`}>
+                        <button onClick={() => handleLinkClick(path)} className={`block w-full py-3 px-4 text-left transition ${pathname === path ? 'text-[var(--btn-primary-bg)] font-bold' : 'text-gray-600 hover:text-gray-900'}`}>
                           {title}
                         </button>
                       </Link>
                     </li>
                   ))}
+                  <li>
+                    <Link href="/pages/login">
+                      <button onClick={() => handleLinkClick('/pages/login')} className="block w-full py-3 px-4 text-left text-gray-600 hover:text-gray-900">
+                        Profils
+                      </button>
+                    </Link>
+                  </li>
                 </ul>
               </nav>
             </div>
           </div>
-        </section>
+        </div>
       </nav>
     </header>
   );
