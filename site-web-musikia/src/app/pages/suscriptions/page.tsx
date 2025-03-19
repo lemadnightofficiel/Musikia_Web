@@ -37,7 +37,7 @@ const SubscriptionPage = () => {
         </div>
         {selectedPlan && (
           <p className="mt-6 text-lg font-semibold text-center text-gray-700">
-            Vous avez choisi l'abonnement <span className="text-indigo-600">{selectedPlan.name}</span>.
+            Vous avez choisi l&apos;abonnement <span className="text-indigo-600">{selectedPlan.name}</span>.
           </p>
         )}
       </main>
