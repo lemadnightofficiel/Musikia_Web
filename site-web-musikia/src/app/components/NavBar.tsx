@@ -23,20 +23,20 @@ const Navbar = () => {
   };
 
   return (
-    <header className="z-50 bg-gray-700 shadow-lg">
+    <header className="z-50 bg-gray-700 shadow-lg fixed top-0 left-0 right-0">
       <nav className="container mx-auto px-4 py-4 md:py-6">
         <section className="flex flex-col md:flex-row items-center justify-between">
-          <Link href="/" className="text-2xl md:text-3xl text-white font-bold hover:text-gray-300 transition mb-4 md:mb-0">
+          <Link href="/" className="text-2xl md:text-3xl text-white font-bold hover:text-gray-300 transition-all duration-300 transform hover:scale-105 mb-4 md:mb-0">
             LOGO
           </Link>
-          <h1 className="hidden md:block text-3xl md:text-4xl text-[var(--h1-color)] font-bold mb-4 md:mb-0">Musikia</h1>
+          <h1 className="hidden md:block text-3xl md:text-4xl text-[var(--h1-color)] font-bold mb-4 md:mb-0 transition-all duration-300 hover:text-blue-400">Musikia</h1>
           <div className="hidden md:flex items-center space-x-16">
             {navLinks.map(({ title, path }) => (
-              <Link key={path} href={path} className={`transition duration-300 text-lg ${pathname === path ? 'text-blue-400 font-bold' : 'text-gray-300 hover:text-white'}`}>
+              <Link key={path} href={path} className={`transition-all duration-300 text-lg transform hover:scale-110 ${pathname === path ? 'text-blue-400 font-bold' : 'text-gray-300 hover:text-white'}`}>
                 {title}
               </Link>
             ))}
-            <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition duration-300">
+            <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
               <FaUser className="mr-2" />
               Se connecter
             </Link>
