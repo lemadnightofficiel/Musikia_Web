@@ -1,7 +1,6 @@
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
 import { Download, Zap, CheckCircle } from "lucide-react";
-import './globals.css'
 
 export default function Home() {
   return (

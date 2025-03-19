@@ -1,5 +1,4 @@
 import { Download, Zap, CheckCircle } from "lucide-react";
-import './globals.css'
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
 
