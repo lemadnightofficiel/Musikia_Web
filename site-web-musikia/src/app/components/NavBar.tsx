@@ -6,7 +6,6 @@ import { FaUser } from "react-icons/fa";
 
 const navLinks = [
   { title: "Accueil", path: "/" },           
-  { title: "Présentation", path: "/pages/intro" },
   { title: "IA", path: "/pages/ia" },              
   { title: "Abonnements", path: "/pages/suscriptions" },
 ];
@@ -39,7 +38,7 @@ const Navbar = () => {
             ))}
             <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition duration-300">
               <FaUser className="mr-2" />
-              Compte
+              Se connecter
             </Link>
           </div>
           <button onClick={toggleNavbar} className="md:hidden w-10 h-10 flex items-center justify-center border border-gray-600 text-white hover:text-gray-300" aria-label={isNavbarOpen ? "Fermer le menu" : "Ouvrir le menu"}>

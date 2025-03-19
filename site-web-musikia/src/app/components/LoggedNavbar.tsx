@@ -16,7 +16,6 @@ interface AccountLink extends NavLink {
 
 const navLinks: NavLink[] = [
   { title: "Accueil", path: "/" },           
-  { title: "Présentation", path: "/pages/intro" },
   { title: "IA", path: "/pages/ia" },              
   { title: "Abonnements", path: "/pages/suscriptions" },
 ];
