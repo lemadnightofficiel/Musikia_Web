@@ -17,8 +17,8 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center mt-16">
             <div className="lg:w-1/2 space-y-4">
               <h2 className="text-3xl font-semibold text-gray-800">Musikia : késaco ?</h2>
-              <p className="text-lg text-gray-600">Découvrez Musikia, l'outil révolutionnaire de transformation musicale basé sur l'intelligence artificielle. Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos fichiers audio en partitions précises. Fini les heures passées à transcrire manuellement : avec une précision exceptionnelle, notre technologie analyse vos mélodies pour les transformer en partitions claires et à vous de jouer !</p>
-              <p className="text-lg text-gray-600">Ne perdez plus de temps, concentrez-vous sur l'essentiel : la musique. Essayez Musikia dès aujourd'hui et révolutionnez votre manière de jouer, d'enseigner et de composer !</p>
+              <p className="text-lg text-gray-600">Découvrez Musikia, l&apos;outil révolutionnaire de transformation musicale basé sur l&apos;intelligence artificielle. Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos fichiers audio en partitions précises. Fini les heures passées à transcrire manuellement : avec une précision exceptionnelle, notre technologie analyse vos mélodies pour les transformer en partitions claires et à vous de jouer !</p>
+              <p className="text-lg text-gray-600">Ne perdez plus de temps, concentrez-vous sur l&apos;essentiel : la musique. Essayez Musikia dès aujourd'hui et révolutionnez votre manière de jouer, d&apos;enseigner et de composer !</p>
               <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
                 Essayez maintenant
               </button>
@@ -52,11 +52,11 @@ export default function Home() {
             </div>
             <div className="lg:w-1/2 space-y-4 lg:pl-12 mt-8 lg:mt-0">
               <h2 className="text-3xl font-semibold text-gray-800">Pour qui est fait Musikia ?</h2>
-              <p className="text-lg text-gray-600">Que vous soyez musicien, professeur, étudiant ou compositeur, Musikia s'adapte à vos besoins et simplifie votre quotidien :</p>
+              <p className="text-lg text-gray-600">Que vous soyez musicien, professeur, étudiant ou compositeur, Musikia s&apos;adapte à vos besoins et simplifie votre quotidien :</p>
               <ul className="list-disc list-inside text-gray-600 space-y-2">
                 <li><strong>Professeurs de musique : </strong>Gagnez un temps précieux en transcrivant instantanément les morceaux pour vos élèves et personnalisez facilement vos supports pédagogiques.</li>
                 <li><strong>Musiciens amateurs : </strong>Développez vos compétences sans effort et progressez plus rapidement grâce à des partitions claires et précises.</li>
-                <li><strong>Compositeurs : </strong>Transformez vos idées musicales en partitions exploitables en quelques secondes, pour ne jamais perdre l'inspiration.</li>
+                <li><strong>Compositeurs : </strong>Transformez vos idées musicales en partitions exploitables en quelques secondes, pour ne jamais perdre l&apos;inspiration.</li>
               </ul>
               <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
                 Essayez maintenant
@@ -70,8 +70,8 @@ export default function Home() {
               <ol className="list-decimal list-inside text-gray-600 space-y-2">
                 <li>IA reconnaît la musique que vous souhaitez transcrire</li>
                 <li>La musique est découpée en différentes pistes audio. Une piste audio est générée par instrument</li>
-                <li>Grâce à son immense base de données, l'IA repère chaque changement de son et lui attribue une note/accord</li>
-                <li>L'IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique</li>
+                <li>Grâce à son immense base de données, l&apos;IA repère chaque changement de son et lui attribue une note/accord</li>
+                <li>L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique</li>
               </ol>
               <p className="text-lg text-gray-600">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
               <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
