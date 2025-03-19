@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from 'next/navigation';
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaSignOutAlt } from "react-icons/fa";
 
 const navLinks = [
   { title: "Accueil", path: "/" },           
@@ -12,14 +12,37 @@ const navLinks = [
 
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  
+  useEffect(() => {
+    
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
   
   const handleLinkClick = (path: string) => {
     setIsNavbarOpen(false); 
     router.push(path);
+  };
+
+  const handleLogout = () => {
+    
+    localStorage.removeItem('authToken');
+    setIsAuthenticated(false);
+    
+    router.push('/');
+  };
+
+  
+  const handleLogin = () => {
+    router.push('/pages/login');
   };
 
   return (
@@ -36,10 +59,23 @@ const Navbar = () => {
                 {title}
               </Link>
             ))}
-            <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-              <FaUser className="mr-2" />
-              Se connecter
-            </Link>
+            {isAuthenticated ? (
+              <button 
+                onClick={handleLogout} 
+                className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              >
+                <FaSignOutAlt className="mr-2" />
+                Se déconnecter
+              </button>
+            ) : (
+              <button 
+                onClick={handleLogin} 
+                className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              >
+                <FaUser className="mr-2" />
+                Se connecter
+              </button>
+            )}
           </div>
           <button onClick={toggleNavbar} className="md:hidden w-10 h-10 flex items-center justify-center border border-gray-600 text-white hover:text-gray-300" aria-label={isNavbarOpen ? "Fermer le menu" : "Ouvrir le menu"}>
             {isNavbarOpen ? "✕" : "☰"}
@@ -60,6 +96,27 @@ const Navbar = () => {
                       </Link>
                     </li>
                   ))}
+                  <li>
+                    {isAuthenticated ? (
+                      <button 
+                        onClick={handleLogout} 
+                        className="block w-full py-3 px-4 text-left transition text-gray-300 hover:bg-gray-700"
+                      >
+                        <FaSignOutAlt className="inline mr-2" />
+                        Se déconnecter
+                      </button>
+                    ) : (
+                      <Link href="/pages/login">
+                        <button 
+                          onClick={() => handleLinkClick('/pages/login')} 
+                          className="block w-full py-3 px-4 text-left transition text-gray-300 hover:bg-gray-700"
+                        >
+                          <FaUser className="inline mr-2" />
+                          Se connecter
+                        </button>
+                      </Link>
+                    )}
+                  </li>
                 </ul>
               </nav>
             </div>

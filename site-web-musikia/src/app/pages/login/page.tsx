@@ -34,8 +34,10 @@ const LoginPage: React.FC = () => {
       setError(loginError.message);
     } else {
       console.log('Connexion réussie', data);
+      
+      localStorage.setItem('authToken', data.session?.access_token || 'dummy-token');
       alert('Connexion réussie !');
-      router.push('/pages/home');
+      router.push('/');
     }
   };
 

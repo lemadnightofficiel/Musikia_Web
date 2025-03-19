@@ -50,9 +50,12 @@ const RegisterPage = () => {
       setError(error.message);
       setSuccessMessage(null);
     } else {
+      console.log('Inscription réussie:', data);
+     
+      localStorage.setItem('authToken', data.session?.access_token || 'dummy-token');
       setSuccessMessage('Inscription réussie !');
       setError(null);
-      router.push('/pages/home');
+      router.push('/');
     }
   };
 
