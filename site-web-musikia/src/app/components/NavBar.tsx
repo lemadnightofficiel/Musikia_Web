@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
+import { FaUser } from 'react-icons/fa';
 
 const navLinks = [
   { title: "Accueil", path: "/" },           
@@ -42,8 +43,9 @@ const Navbar = () => {
                 {title}
               </Link>
             ))}
-            <Link href="/pages/login" className="bg-[var(--btn-primary-bg)] text-white font-medium py-1 px-4 rounded">
-              Profils
+            <Link href="/pages/login" className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition duration-300">
+              <FaUser className="mr-2" />
+              Se connecter
             </Link>
           </div>
           

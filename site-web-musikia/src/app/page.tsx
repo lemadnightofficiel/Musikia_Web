@@ -1,204 +1,84 @@
-import FileUpload from "./components/FileUpload";
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
-import './globals.css'
-import Image from 'next/image';
+import { Download, Zap, CheckCircle } from "lucide-react";
 
 export default function Home() {
   return (
     <section className="min-h-screen bg-[var(--secondary-color)]">
       <Navbar />
-      
-      {/* Hero Section */}
-      <div className="bg-[var(--secondary-color)] py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-center text-3xl font-bold text-[var(--h2-color)] mb-6">
-            Transformez vos fichiers MP3 en partitions
-          </h1>
-        </div>
-      </div>
-      
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Left Column - Text */}
-          <div className="pr-0 md:pr-8">
-            <h2 className="text-xl font-bold mb-4">Musikia : késaco ?</h2>
-            <p className="text-[var(--p-color)] mb-4">
-              Découvrez Musikia, l'outil révolutionnaire de transformation musicale basé sur l'intelligence artificielle.
-              Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos
-              fichiers audio en partitions précises.
+      <main className="bg-white py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 xl:px-16">
+          <div className="mx-auto max-w-4xl lg:text-center">
+            <p className="mt-2 text-4xl font-bold tracking-tight text-indigo-700 sm:text-5xl">
+              Transformez vos fichiers MP3 en partitions précises et détaillées
             </p>
-            <p className="text-[var(--p-color)] mb-4">
-              Fini les heures passées à transcrire manuellement : avec une 
-              précision exceptionnelle, notre technologie analyse vos
-              mélodies pour les transformer en partitions claires et à vous
-              de jouer !
-            </p>
-            <p className="text-[var(--p-color)] mb-6">
-              Ne perdez plus de temps, concentrez-vous sur
-              l'essentiel : la musique. Essayez Musikia dès aujourd'hui
-              et révolutionnez votre manière de jouer, d'enseigner et
-              de composer !
-            </p>
-            <button className="btn-primary">
-              Essayez maintenant
-            </button>
           </div>
-          
-          {/* Right Column - Image */}
-          <div className="bg-gray-300 h-64 md:h-auto flex items-center justify-center">
-            <div className="text-center">
-              <p className="text-xl font-semibold">Belle image d'une IA</p>
+          <div className="flex flex-col lg:flex-row items-center mt-16">
+            <div className="lg:w-1/2 space-y-4">
+              <h2 className="text-3xl font-semibold text-gray-800">Musikia : késaco ?</h2>
+              <p className="text-lg text-gray-600">Découvrez Musikia, l&apos;outil révolutionnaire de transformation musicale basé sur l&apos;intelligence artificielle. Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos fichiers audio en partitions précises. Fini les heures passées à transcrire manuellement : avec une précision exceptionnelle, notre technologie analyse vos mélodies pour les transformer en partitions claires et à vous de jouer !</p>
+              <p className="text-lg text-gray-600">Ne perdez plus de temps, concentrez-vous sur l&apos;essentiel : la musique. Essayez Musikia dès aujourd&apos;hui et révolutionnez votre manière de jouer, d&apos;enseigner et de composer !</p>
+              <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
+                Essayez maintenant
+              </button>
+            </div>
+            <div className="lg:w-1/2 mt-8 lg:mt-0">
+              <img src="/images/intro/image_intro_1.png" alt="Illustration de conversion musicale" className="w-full rounded-xl shadow-lg" />
             </div>
           </div>
-        </div>
-        
-        {/* Advantages Section */}
-        <div className="mb-12">
-          <h2 className="text-xl font-bold mb-8 text-center">Nos avantages</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1 */}
-            <div className="feature-card pl-16">
-              <div className="feature-icon">
-                <span className="text-sm font-bold">icône</span>
-              </div>
-              <h3 className="text-lg font-bold mb-2 mt-2">Rapidité</h3>
-              <p className="text-sm text-[var(--p-color)]">
-                Grâce à son intelligence artificielle avancée, Musikia
-                transforme vos fichiers de manière accessible, vous
-                permettant de gagner un temps précieux.
-              </p>
-              <p className="text-sm text-[var(--p-color)] mt-4">
-                Dégagez du temps et concentrez-vous sur l'essentiel :
-                jouer, enseigner et créer !
-              </p>
-            </div>
-            
-            {/* Card 2 */}
-            <div className="feature-card pl-16">
-              <div className="feature-icon">
-                <span className="text-sm font-bold">icône</span>
-              </div>
-              <h3 className="text-lg font-bold mb-2 mt-2">Téléchargement rapide</h3>
-              <p className="text-sm text-[var(--p-color)]">
-                Avec Musikia, importez vos fichiers audio en un clic
-                et obtenez instantanément votre partition. Plus
-                besoin d'attendre, votre temps est précieux. Soyez
-                efficace !
-              </p>
-              <p className="text-sm text-[var(--p-color)] mt-4">
-                Que vous soyez en répétition ou en cours, accédez à
-                vos transcriptions en quelques secondes.
-              </p>
-            </div>
-            
-            {/* Card 3 */}
-            <div className="feature-card pl-16">
-              <div className="feature-icon">
-                <span className="text-sm font-bold">icône</span>
-              </div>
-              <h3 className="text-lg font-bold mb-2 mt-2">Précision optimale</h3>
-              <p className="text-sm text-[var(--p-color)]">
-                Grâce à une intelligence artificielle avancée, Musikia
-                capture chaque note avec une fidélité exceptionnelle,
-                évitant les erreurs courantes des transcriptions
-                manuelles.
-              </p>
-              <p className="text-sm text-[var(--p-color)] mt-4">
-                Profitez de partitions fidèles et prêtes à l'emploi, sans
-                compromis sur la qualité !
-              </p>
+          <div className="mt-24">
+            <h2 className="text-3xl font-semibold text-gray-800 text-center">Nos avantages</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              {[
+                { icon: <Download className="h-10 w-10 text-white" />, title: "Téléchargement facile", text: "Grâce à son intelligence artificielle avancée, Musikia transforme vos fichiers de manière accessible, vous permettant de gagner un temps précieux.", text2: "Dégagez du temps et concentrez-vous sur l'essentiel : jouer, enseigner et créer !" },
+                { icon: <Zap className="h-10 w-10 text-white" />, title: "Résultats rapides", text: "Musikia traite vos fichiers en quelques secondes et vous obtenez instantanément votre partition. Plus besoin d'attendre, votre temps est précieux. Soyez efficace !", text2: "Que vous soyez en répétition ou en cours, accédez à vos transcriptions en quelques secondes." },
+                { icon: <CheckCircle className="h-10 w-10 text-white" />, title: "Précision optimale", text: "Notre technologie d'intelligence artificielle avancée capture chaque note avec une fidélité exceptionnelle, évitant les erreurs courantes des transcriptions manuelles.", text2: "Profitez de partitions fidèles et prêtes à l'emploi, sans compromis sur la qualité !" }
+              ].map((item, index) => (
+                <div key={index} className="relative pl-16 group bg-white p-6 rounded-xl shadow-lg">
+                  <div className="absolute left-0 top-0 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-md">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2 mt-2">{item.title}</h3>
+                  <p className="text-base text-gray-600">{item.text}</p>
+                  <p className="text-base text-gray-600">{item.text2}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-        
-        {/* For Who Section */}
-        <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Left Column - Image */}
-            <div className="bg-gray-300 h-64 md:h-auto flex items-center justify-center order-2 md:order-1">
-              <div className="text-center">
-                <p className="text-xl font-semibold">Belle image d'une IA</p>
-              </div>
+          <div className="flex flex-col lg:flex-row items-center mt-24">
+            <div className="lg:w-1/2">
+              <img src="/images/intro/image_intro_2.png" alt="Illustration de partition musicale" className="w-full rounded-xl shadow-lg" />
             </div>
-            
-            {/* Right Column - Text */}
-            <div className="order-1 md:order-2">
-              <h2 className="text-xl font-bold mb-4">Pour qui est fait Musikia ?</h2>
-              <p className="text-[var(--p-color)] mb-4">
-                Que vous soyez musicien, professeur, étudiant ou
-                compositeur, Musikia s'adapte à vos besoins et simplifie
-                votre quotidien :
-              </p>
-              <ul className="list-disc pl-5 mb-6 text-[var(--p-color)]">
-                <li className="mb-2">
-                  <strong>Professeurs de musique :</strong> Gagnez un temps précieux
-                  en transcrivant instantanément les morceaux pour
-                  vos élèves et personnalisez facilement vos supports
-                  pédagogiques.
-                </li>
-                <li className="mb-2">
-                  <strong>Musiciens amateurs :</strong> Développez vos compétences
-                  sans effort et progressez plus rapidement grâce
-                  à des partitions claires et précises.
-                </li>
-                <li className="mb-2">
-                  <strong>Compositeurs :</strong> Transformez vos idées musicales en partitions exploitables en quelques
-                  secondes, pour ne jamais perdre l'inspiration.
-                </li>
+            <div className="lg:w-1/2 space-y-4 lg:pl-12 mt-8 lg:mt-0">
+              <h2 className="text-3xl font-semibold text-gray-800">Pour qui est fait Musikia ?</h2>
+              <p className="text-lg text-gray-600">Que vous soyez musicien, professeur, étudiant ou compositeur, Musikia s&apos;adapte à vos besoins et simplifie votre quotidien :</p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li><strong>Professeurs de musique : </strong>Gagnez un temps précieux en transcrivant instantanément les morceaux pour vos élèves et personnalisez facilement vos supports pédagogiques.</li>
+                <li><strong>Musiciens amateurs : </strong>Développez vos compétences sans effort et progressez plus rapidement grâce à des partitions claires et précises.</li>
+                <li><strong>Compositeurs : </strong>Transformez vos idées musicales en partitions exploitables en quelques secondes, pour ne jamais perdre l&apos;inspiration.</li>
               </ul>
-              <p className="text-[var(--p-color)] mb-6">
-                Musikia est la solution pour tous : simple, rapide,
-                fiable et accessible à tous !
-              </p>
-              <button className="btn-primary">
+              <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
                 Essayez maintenant
               </button>
             </div>
           </div>
-        </div>
-        
-        {/* How it works Section */}
-        <div className="mb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Left Column - Text */}
-            <div>
-              <h2 className="text-xl font-bold mb-4">Comment ça marche ?</h2>
-              <p className="text-[var(--p-color)] mb-4">
-                Rien n'a été développé en 4 parties :
-              </p>
-              <ol className="list-decimal pl-5 mb-6 text-[var(--p-color)]">
-                <li className="mb-2">
-                  <strong>1. IA reconnaît la musique que vous souhaitez</strong>
-                </li>
-                <li className="mb-2">
-                  <strong>2. ÉCOUTER :</strong> notre détecteur va différencier chaque audio.
-                </li>
-                <li className="mb-2">
-                  <strong>3. ANALYSER :</strong> nous analysons les notes, les rythmes, les nuances.
-                </li>
-                <li className="mb-2">
-                  <strong>4. CRÉER :</strong> nos musiciens sous forme de partitions. Une
-                  fois terminée, vous pouvez télécharger chaque instrument
-                  présent dans la musique.
-                </li>
+          <div className="flex flex-col lg:flex-row items-center mt-16">
+            <div className="lg:w-1/2 space-y-4">
+              <h2 className="text-3xl font-semibold text-gray-800">Comment ça marche ?</h2>
+              <p className="text-lg text-gray-600">Notre IA se découpe en 4 parties :</p>
+              <ol className="list-decimal list-inside text-gray-600 space-y-2">
+                <li>IA reconnaît la musique que vous souhaitez transcrire</li>
+                <li>La musique est découpée en différentes pistes audio. Une piste audio est générée par instrument</li>
+                <li>Grâce à son immense base de données, l&apos;IA repère chaque changement de son et lui attribue une note/accord</li>
+                <li>L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique</li>
               </ol>
-              <p className="text-[var(--p-color)] mb-6">
-                Si vous souhaitez en savoir plus, vous pouvez consulter
-                nos articles détaillés dans notre blog.
-              </p>
-              <button className="btn-primary">
-                Consulter les articles
+              <p className="text-lg text-gray-600">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
+              <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
+                NaN
               </button>
             </div>
-            
-            {/* Right Column - Image */}
-            <div className="bg-gray-300 h-64 md:h-auto flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-xl font-semibold">Belle image d'une IA</p>
-              </div>
+            <div className="lg:w-1/2 mt-8 lg:mt-0">
+              <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
             </div>
           </div>
         </div>
