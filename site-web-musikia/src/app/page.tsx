@@ -17,7 +17,7 @@ export default function Home() {
             <div className="lg:w-1/2 space-y-4">
               <h2 className="text-3xl font-semibold text-gray-800">Musikia : késaco ?</h2>
               <p className="text-lg text-gray-600">Découvrez Musikia, l&apos;outil révolutionnaire de transformation musicale basé sur l&apos;intelligence artificielle. Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos fichiers audio en partitions précises. Fini les heures passées à transcrire manuellement : avec une précision exceptionnelle, notre technologie analyse vos mélodies pour les transformer en partitions claires et à vous de jouer !</p>
-              <p className="text-lg text-gray-600">Ne perdez plus de temps, concentrez-vous sur l&apos;essentiel : la musique. Essayez Musikia dès aujourd'hui et révolutionnez votre manière de jouer, d&apos;enseigner et de composer !</p>
+              <p className="text-lg text-gray-600">Ne perdez plus de temps, concentrez-vous sur l&apos;essentiel : la musique. Essayez Musikia dès aujourd&apos;hui et révolutionnez votre manière de jouer, d&apos;enseigner et de composer !</p>
               <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
                 Essayez maintenant
               </button>
