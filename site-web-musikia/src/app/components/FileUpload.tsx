@@ -4,8 +4,6 @@ import React, { useState, useRef } from "react";
 const FileUpload = () => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [transcription, setTranscription] = useState<string | null>(null);
-  const [partitionUrl, setPartitionUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,14 +45,8 @@ const FileUpload = () => {
 
   const handleSubmit = async () => {
     if (!file) return;
-
     setLoading(true);
-
     await new Promise((resolve) => setTimeout(resolve, 5000));
-
-    setTranscription("Transcription terminée !");
-    setPartitionUrl("/path/to/partition");
-
     setLoading(false);
   };
 
@@ -78,11 +70,6 @@ const FileUpload = () => {
           <p className="mt-2 text-gray-600">ou glisser-déposer</p>
           <p className="text-sm text-gray-500 mt-2">MP3 jusquà 10 MB</p>
           
-          {file && (
-            <div className="mt-4 p-3 bg-indigo-50 rounded-lg">
-              <p className="text-indigo-700">Fichier sélectionné : {file.name}</p>
-            </div>
-          )}
         </div>
         
         <input id="file-upload" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="audio/mpeg,.mp3"/>
@@ -97,7 +84,7 @@ const FileUpload = () => {
         </button>
       </div>
 
-      {file && !loading && !transcription && (
+      {file && !loading && (
         <div className="mt-6 flex justify-center">
           <button 
             onClick={handleSubmit} 
@@ -112,20 +99,6 @@ const FileUpload = () => {
         <div className="mt-6 text-center">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-600"></div>
           <p className="mt-2 text-gray-600">Chargement...</p>
-        </div>
-      )}
-
-      {transcription && (
-        <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold text-gray-800 text-center mb-4">Transcription</h2>
-          <p className="text-center text-gray-700 mb-6">{transcription}</p>
-          {partitionUrl && (
-            <div className="text-center">
-              <a href={partitionUrl} download className="inline-block px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:scale-105 transition-all duration-300">
-                Télécharger la partition
-              </a>
-            </div>
-          )}
         </div>
       )}
     </div>
