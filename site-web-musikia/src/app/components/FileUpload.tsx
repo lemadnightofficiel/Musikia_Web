@@ -51,7 +51,7 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-8">
+    <div className="max-w-3xl mx-auto mt-8">
       <div 
         className="mt-2 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-indigo-400 px-6 py-10 transition-colors duration-300 hover:border-indigo-500 relative cursor-pointer" 
         onDragOver={handleDragOver} 
