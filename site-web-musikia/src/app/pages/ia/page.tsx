@@ -4,7 +4,7 @@ import '../../globals.css'
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
 import React, { useState, useEffect } from "react";
-import {FaTrash, FaDownload, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaTrash, FaDownload, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface SelectedFile {
   name: string;
@@ -71,25 +71,21 @@ const IAPage: React.FC = () => {
   return (
     <section className="flex flex-col min-h-screen bg-gray-50 text-black-900">
       <Navbar />
-      <main className="flex-grow container mx-auto px-6 py-8">
-      
-        <h1 className="text-5xl font-extrabold mb-6 text-center text-black">Notre transcripteur par IA</h1>
+      <main className="flex-grow container mx-auto px-6 py-8 pt-24">
+        <h1 className="text-4xl mt-4 mb-6 text-center text-black">Notre transcripteur par IA</h1>
         <p className="text-lg text-center mb-8 text-black-600">
-         Transcrivez votre Musique en seulement quelques minutes avec l&apos;IA Musikia. Il suffit de télécharger votre musique au format MP3 et l&apos;IA se charger du reste!
+          Transcrivez votre Musique en seulement quelques minutes avec l&apos;IA Musikia. Il suffit de télécharger votre musique au format MP3 et l&apos;IA se charger du reste!
         </p>
-        
         {!selectedFile ? (
           <div>
             <h3 className="text-2xl font-bold mb-6 text-center">Convertissez votre musique en partition</h3>
             <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
               <FileUpload />
             </div>
-            
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
               <div >
                 <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
               </div>
-              
               <div>
                 <h3 className="text-2xl font-bold mb-4">Comment ça marche ?</h3>
                 <p className="mb-2">Notre IA se découpe en 4 parties :</p>
@@ -100,7 +96,6 @@ const IAPage: React.FC = () => {
                   <li>L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique.</li>
                 </ol>
                 <p className="mt-4">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
-                
                 <div className="mt-4">
                   <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all duration-300">
                     Voir nos réseaux
