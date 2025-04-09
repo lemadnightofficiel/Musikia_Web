@@ -99,14 +99,10 @@ const IAPage: React.FC = () => {
                 <audio controls className="w-full mt-2">
                   <source src={selectedFile.url} type="audio/mp3" />
                 </audio>
-                
-                <div className="mt-4">
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Remplacer le fichier:
-                  </label>
-                  <FileUpload />
-                </div>
               </div>
+              <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
+                <FaDownload /> Télécharger toutes les partitions
+              </button>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
               <h2 className="text-xl font-bold mb-4">Choisissez un instrument</h2>
@@ -133,9 +129,6 @@ const IAPage: React.FC = () => {
                   )}
                 </div>
               ))}
-              <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
-                <FaDownload /> Télécharger toutes les partitions
-              </button>
             </div>
           </div>
         )}
