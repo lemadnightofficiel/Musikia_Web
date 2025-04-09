@@ -17,7 +17,6 @@ const IAPage: React.FC = () => {
   const [openInstrument, setOpenInstrument] = useState<string | null>(null);
   const instruments: string[] = ["Piano", "Voix", "Guitare (accompagnement)","Guitare (solo)", "Basse", "Batterie", "Kazou"];
   
-  // Fonction pour traiter un fichier sélectionné
   const processFile = (file: File) => {
     const objectUrl = URL.createObjectURL(file);
     const audio = new Audio(objectUrl);
@@ -30,7 +29,6 @@ const IAPage: React.FC = () => {
     };
   };
 
-  // Écouteur global pour intercepter les événements de changement de fichier
   useEffect(() => {
     const handleFileChange = (event: Event) => {
       const input = event.target as HTMLInputElement;
@@ -39,7 +37,6 @@ const IAPage: React.FC = () => {
       }
     };
 
-    // Attacher l'écouteur aux inputs de type file sur la page
     document.addEventListener('change', (e) => {
       if ((e.target as HTMLElement).tagName === 'INPUT' && 
           (e.target as HTMLInputElement).type === 'file') {
@@ -55,7 +52,6 @@ const IAPage: React.FC = () => {
   const removeFile = () => {
     setSelectedFile(null);
     
-    // Réinitialiser tous les inputs de fichier si nécessaire
     const fileInputs = document.querySelectorAll('input[type="file"]');
     fileInputs.forEach((input) => {
       (input as HTMLInputElement).value = '';
@@ -82,12 +78,10 @@ const IAPage: React.FC = () => {
         </p>
         
         {!selectedFile ? (
-          // Afficher uniquement le composant FileUpload si aucun fichier sélectionné
           <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
             <FileUpload />
           </div>
         ) : (
-          // Afficher le fichier sélectionné et la liste des instruments
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
               <div className="mb-4 flex justify-between items-center">
@@ -114,7 +108,6 @@ const IAPage: React.FC = () => {
                 </div>
               </div>
             </div>
-
             <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
               <h2 className="text-xl font-bold mb-4">Choisissez un instrument</h2>
               {instruments.map((instrument) => (
