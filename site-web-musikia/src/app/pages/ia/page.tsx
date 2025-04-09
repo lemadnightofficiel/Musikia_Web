@@ -86,11 +86,8 @@ const IAPage: React.FC = () => {
             </div>
             
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="bg-gray-200 rounded-lg p-6 flex items-center justify-center">
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-2">Belle image d&apos;une IA</h3>
-                  <p className="text-xl">déjà fournit</p>
-                </div>
+              <div >
+                <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
               </div>
               
               <div>
