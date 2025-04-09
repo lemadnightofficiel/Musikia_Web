@@ -4,7 +4,7 @@ import '../../globals.css'
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
 import React, { useState, useEffect } from "react";
-import { FaFileAudio, FaPlay, FaTrash, FaDownload, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaTrash, FaDownload, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface SelectedFile {
   name: string;
