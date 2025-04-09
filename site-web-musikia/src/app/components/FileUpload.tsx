@@ -41,6 +41,10 @@ const FileUpload = () => {
     handleFile(droppedFile);
   };
 
+  const handleDropzoneClick = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleSubmit = async () => {
     if (!file) return;
 
@@ -56,7 +60,13 @@ const FileUpload = () => {
 
   return (
     <div className="max-w-3xl mx-auto mt-8">
-      <div className="mt-2 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-indigo-400 px-6 py-10 transition-colors duration-300 hover:border-indigo-500 relative" onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+      <div 
+        className="mt-2 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-indigo-400 px-6 py-10 transition-colors duration-300 hover:border-indigo-500 relative cursor-pointer" 
+        onDragOver={handleDragOver} 
+        onDragLeave={handleDragLeave} 
+        onDrop={handleDrop}
+        onClick={handleDropzoneClick}
+      >
         <div className="text-center">
           <svg className="mx-auto h-20 w-20 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 2v8m0 0l-4-4m4 4l4-4"></path>
@@ -66,7 +76,7 @@ const FileUpload = () => {
           
           <h3 className="mt-4 text-xl font-semibold text-gray-800">Télécharger un fichier</h3>
           <p className="mt-2 text-gray-600">ou glisser-déposer</p>
-          <p className="text-sm text-gray-500 mt-2">MP3 jusqu'à 10 MB</p>
+          <p className="text-sm text-gray-500 mt-2">MP3 jusquà 10 MB</p>
           
           {file && (
             <div className="mt-4 p-3 bg-indigo-50 rounded-lg">
