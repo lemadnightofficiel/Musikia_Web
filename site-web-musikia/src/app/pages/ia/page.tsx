@@ -1,8 +1,9 @@
 "use client";
+import FileUpload from '@/app/components/FileUpload';
 import '../../globals.css'
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaFileAudio, FaPlay, FaTrash, FaDownload, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface SelectedFile {
@@ -15,20 +16,50 @@ const IAPage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<SelectedFile | null>(null);
   const [openInstrument, setOpenInstrument] = useState<string | null>(null);
   const instruments: string[] = ["Piano", "Voix", "Guitare (accompagnement)","Guitare (solo)", "Basse", "Batterie", "Kazou"];
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const objectUrl = URL.createObjectURL(file);
-      const audio = new Audio(objectUrl);
-      audio.onloadedmetadata = () => {
-        setSelectedFile({ name: file.name, duration: formatTime(audio.duration), url: objectUrl });
-      };
-    }
+  
+  // Fonction pour traiter un fichier sélectionné
+  const processFile = (file: File) => {
+    const objectUrl = URL.createObjectURL(file);
+    const audio = new Audio(objectUrl);
+    audio.onloadedmetadata = () => {
+      setSelectedFile({
+        name: file.name,
+        duration: formatTime(audio.duration),
+        url: objectUrl
+      });
+    };
   };
+
+  // Écouteur global pour intercepter les événements de changement de fichier
+  useEffect(() => {
+    const handleFileChange = (event: Event) => {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length > 0) {
+        processFile(input.files[0]);
+      }
+    };
+
+    // Attacher l'écouteur aux inputs de type file sur la page
+    document.addEventListener('change', (e) => {
+      if ((e.target as HTMLElement).tagName === 'INPUT' && 
+          (e.target as HTMLInputElement).type === 'file') {
+        handleFileChange(e);
+      }
+    });
+
+    return () => {
+      document.removeEventListener('change', handleFileChange);
+    };
+  }, []);
 
   const removeFile = () => {
     setSelectedFile(null);
+    
+    // Réinitialiser tous les inputs de fichier si nécessaire
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    fileInputs.forEach((input) => {
+      (input as HTMLInputElement).value = '';
+    });
   };
 
   const toggleInstrument = (instrument: string) => {
@@ -50,68 +81,71 @@ const IAPage: React.FC = () => {
           Téléchargez votre fichier MP3 et laissez notre IA le transcrire en partition pour vous.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
-            <h2 className="text-xl font-bold mb-4">Sélectionnez un fichier</h2>
-            <div className="border border-dashed border-gray-400 p-6 text-center rounded-lg cursor-pointer hover:bg-gray-100 transition">
-              <label>
-                <input type="file" accept=".mp3" className="hidden" onChange={handleFileChange} />
-                <FaFileAudio className="text-5xl mx-auto text-gray-500" />
-                <p className="text-gray-700 mt-2">Glissez ou sélectionnez un fichier MP3</p>
-              </label>
-            </div>
-            {selectedFile && (
-              <div className="mt-4 p-4 bg-gray-100 rounded-lg shadow-md">
+        {!selectedFile ? (
+          // Afficher uniquement le composant FileUpload si aucun fichier sélectionné
+          <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <FileUpload />
+          </div>
+        ) : (
+          // Afficher le fichier sélectionné et la liste des instruments
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
+              <div className="mb-4 flex justify-between items-center">
+                <h2 className="text-xl font-bold">Fichier sélectionné</h2>
+                <button 
+                  onClick={() => removeFile()} 
+                  className="text-red-500 hover:text-red-700 font-medium flex items-center gap-1"
+                >
+                  <FaTrash className="text-sm" /> Supprimer
+                </button>
+              </div>
+              <div className="p-4 bg-gray-100 rounded-lg shadow-md">
                 <p><strong>Nom:</strong> {selectedFile.name}</p>
                 <p><strong>Durée:</strong> {selectedFile.duration}</p>
                 <audio controls className="w-full mt-2">
                   <source src={selectedFile.url} type="audio/mp3" />
                 </audio>
-                <div className="flex gap-4 mt-4">
-                  <button onClick={removeFile} className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-600 transition">
-                    <FaTrash /> Enlever
-                  </button>
-                  <button className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
-                    <FaDownload /> Tout télécharger
-                  </button>
+                
+                <div className="mt-4">
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Remplacer le fichier:
+                  </label>
+                  <FileUpload />
                 </div>
               </div>
-            )}
-          </div>
+            </div>
 
-          <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
-            <h2 className="text-xl font-bold mb-4">Choisissez un instrument</h2>
-            {instruments.map((instrument) => (
-              <div key={instrument} className="mb-4 border-b pb-2">
-                <button
-                  className="flex justify-between items-center w-full text-left text-lg font-semibold p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
-                  onClick={() => toggleInstrument(instrument)}
-                >
-                  {instrument}
-                  {openInstrument === instrument ? <FaChevronUp /> : <FaChevronDown />}
-                </button>
-                {openInstrument === instrument && (
-                  <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
-                    <p><strong>Partition pour:</strong> {instrument}</p>
-                    {selectedFile ? (
-                      <>
-                        <p><strong>Fichier:</strong> {selectedFile.name}</p>
-                        <audio controls className="w-full mt-2">
-                          <source src={selectedFile.url} type="audio/mp3" />
-                        </audio>
-                        <button className="flex items-center gap-2 mt-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
-                          <FaDownload /> Télécharger
-                        </button>
-                      </>
-                    ) : (
-                      <p className="text-red-500">Aucun fichier sélectionné</p>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+            <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
+              <h2 className="text-xl font-bold mb-4">Choisissez un instrument</h2>
+              {instruments.map((instrument) => (
+                <div key={instrument} className="mb-4 border-b pb-2">
+                  <button
+                    className="flex justify-between items-center w-full text-left text-lg font-semibold p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+                    onClick={() => toggleInstrument(instrument)}
+                  >
+                    {instrument}
+                    {openInstrument === instrument ? <FaChevronUp /> : <FaChevronDown />}
+                  </button>
+                  {openInstrument === instrument && (
+                    <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                      <p><strong>Partition pour:</strong> {instrument}</p>
+                      <p><strong>Fichier:</strong> {selectedFile.name}</p>
+                      <audio controls className="w-full mt-2">
+                        <source src={selectedFile.url} type="audio/mp3" />
+                      </audio>
+                      <button className="flex items-center gap-2 mt-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
+                        <FaDownload /> Télécharger la partition
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+              <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
+                <FaDownload /> Télécharger toutes les partitions
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </main>
       <Footer />
     </section>
