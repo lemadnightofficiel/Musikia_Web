@@ -97,7 +97,7 @@ const IAPage: React.FC = () => {
                 </ol>
                 <p className="text-lg text-gray-600">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
                 <div className="mt-4">
-                  <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all duration-300">
+                  <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-300">
                     Voir nos réseaux
                   </button>
                 </div>
@@ -171,7 +171,7 @@ const IAPage: React.FC = () => {
                 </ol>
                 <p className="text-lg text-gray-600">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
                 <div className="mt-4">
-                  <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all duration-300">
+                  <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-300">
                     Voir nos réseaux
                   </button>
                 </div>

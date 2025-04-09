@@ -77,7 +77,7 @@ export default function Home() {
                 NaN
               </button>
             </div>
-            <div className="lg:w-1/2 mt-8 lg:mt-0">
+            <div className="lg:w-1/2 lg:ml-90">
               <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
             </div>
           </div>
