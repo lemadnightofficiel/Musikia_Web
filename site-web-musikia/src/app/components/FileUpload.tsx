@@ -51,7 +51,7 @@ const FileUpload = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-8">
+    <div className="max-w-5xl mx-auto mt-8">
       <div 
         className="mt-2 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-indigo-400 px-6 py-10 transition-colors duration-300 hover:border-indigo-500 relative cursor-pointer" 
         onDragOver={handleDragOver} 
@@ -75,7 +75,7 @@ const FileUpload = () => {
         <input id="file-upload" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} accept="audio/mpeg,.mp3"/>
       </div>
 
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-center mt-4">
         <button 
           onClick={() => fileInputRef.current?.click()} 
           className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 hover:scale-105 transition-all duration-300"
