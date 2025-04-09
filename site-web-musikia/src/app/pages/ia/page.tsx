@@ -105,53 +105,77 @@ const IAPage: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
-              <div className="mb-4 flex justify-between items-center">
-                <h2 className="text-xl font-bold">Fichier sélectionné</h2>
-                <button 
-                  onClick={() => removeFile()} 
-                  className="text-red-500 hover:text-red-700 font-medium flex items-center gap-1"
-                >
-                  <FaTrash className="text-sm" /> Supprimer
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
+                <div className="mb-4 flex justify-between items-center">
+                  <h2 className="text-xl font-bold">Fichier sélectionné</h2>
+                  <button 
+                    onClick={() => removeFile()} 
+                    className="text-red-500 hover:text-red-700 font-medium flex items-center gap-1"
+                  >
+                    <FaTrash className="text-sm" /> Supprimer
+                  </button>
+                </div>
+                <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+                  <p><strong>Nom:</strong> {selectedFile.name}</p>
+                  <p><strong>Durée:</strong> {selectedFile.duration}</p>
+                  <audio controls className="w-full mt-2">
+                    <source src={selectedFile.url} type="audio/mp3" />
+                  </audio>
+                </div>
+                <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
+                  <FaDownload /> Télécharger toutes les partitions
                 </button>
               </div>
-              <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-                <p><strong>Nom:</strong> {selectedFile.name}</p>
-                <p><strong>Durée:</strong> {selectedFile.duration}</p>
-                <audio controls className="w-full mt-2">
-                  <source src={selectedFile.url} type="audio/mp3" />
-                </audio>
+              <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
+                <h2 className="text-xl font-bold mb-4">Choisissez un instrument</h2>
+                {instruments.map((instrument) => (
+                  <div key={instrument} className="mb-4 border-b pb-2">
+                    <button
+                      className="flex justify-between items-center w-full text-left text-lg font-semibold p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+                      onClick={() => toggleInstrument(instrument)}
+                    >
+                      {instrument}
+                      {openInstrument === instrument ? <FaChevronUp /> : <FaChevronDown />}
+                    </button>
+                    {openInstrument === instrument && (
+                      <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
+                        <p><strong>Partition pour:</strong> {instrument}</p>
+                        <p><strong>Fichier:</strong> {selectedFile.name}</p>
+                        <audio controls className="w-full mt-2">
+                          <source src={selectedFile.url} type="audio/mp3" />
+                        </audio>
+                        <button className="flex items-center gap-2 mt-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
+                          <FaDownload /> Télécharger la partition
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-              <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
-                <FaDownload /> Télécharger toutes les partitions
-              </button>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
-              <h2 className="text-xl font-bold mb-4">Choisissez un instrument</h2>
-              {instruments.map((instrument) => (
-                <div key={instrument} className="mb-4 border-b pb-2">
-                  <button
-                    className="flex justify-between items-center w-full text-left text-lg font-semibold p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
-                    onClick={() => toggleInstrument(instrument)}
-                  >
-                    {instrument}
-                    {openInstrument === instrument ? <FaChevronUp /> : <FaChevronDown />}
+            
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div>
+                <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4">Comment ça marche ?</h3>
+                <p className="mb-2">Notre IA se découpe en 4 parties :</p>
+                <ol className="list-decimal pl-6 space-y-2">
+                  <li>IA récupère la musique que vous souhaitez transcrire.</li>
+                  <li>La musique est découpée en différentes pistes audio. Une piste audio est dédiée par instrument.</li>
+                  <li>Grâce à son immense base de données, l&apos;IA repère chaque changement de son et lui attribue une note/accord.</li>
+                  <li>L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique.</li>
+                </ol>
+                <p className="mt-4">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
+                <div className="mt-4">
+                  <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all duration-300">
+                    Voir nos réseaux
                   </button>
-                  {openInstrument === instrument && (
-                    <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
-                      <p><strong>Partition pour:</strong> {instrument}</p>
-                      <p><strong>Fichier:</strong> {selectedFile.name}</p>
-                      <audio controls className="w-full mt-2">
-                        <source src={selectedFile.url} type="audio/mp3" />
-                      </audio>
-                      <button className="flex items-center gap-2 mt-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
-                        <FaDownload /> Télécharger la partition
-                      </button>
-                    </div>
-                  )}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         )}
