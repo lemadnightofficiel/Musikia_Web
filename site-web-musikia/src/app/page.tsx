@@ -4,7 +4,7 @@ import { Download, Zap, CheckCircle } from "lucide-react";
 
 export default function Home() {
   return (
-    <section className="bg-gray-100 min-h-screen">
+    <section className="min-h-screen bg-[var(--secondary-color)]">
       <Navbar />
       <main className="bg-white py-24 sm:py-32 pt-32 md:pt-40">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 xl:px-16">
@@ -83,6 +83,7 @@ export default function Home() {
           </div>
         </div>
       </main>
+      
       <Footer />
     </section>
   );

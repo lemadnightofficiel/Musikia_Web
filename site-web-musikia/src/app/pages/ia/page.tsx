@@ -69,17 +69,43 @@ const IAPage: React.FC = () => {
   };
 
   return (
-    <section className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+    <section className="flex flex-col min-h-screen bg-gray-50 text-black-900">
       <Navbar />
-      <main className="flex-grow container mx-auto px-6 py-8">
-        <h1 className="text-4xl font-extrabold mb-6 text-center text-gray-800">Notre IA</h1>
-        <p className="text-lg text-center mb-8 text-gray-600">
-          Téléchargez votre fichier MP3 et laissez notre IA le transcrire en partition pour vous.
+      <main className="flex-grow container mx-auto px-6 py-8 pt-24">
+        <h1 className="text-4xl mt-4 mb-6 text-center text-black">Notre transcripteur par IA</h1>
+        <p className="text-lg text-center mb-8 text-black-600">
+          Transcrivez votre Musique en seulement quelques minutes avec l&apos;IA Musikia. Il suffit de télécharger votre musique au format MP3 et l&apos;IA se charger du reste!
         </p>
-        
         {!selectedFile ? (
-          <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-            <FileUpload />
+          <div>
+            <h3 className="text-2xl font-bold mb-6 text-center">Convertissez votre musique en partition</h3>
+            <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+              <FileUpload />
+            </div>
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="bg-gray-200 rounded-lg p-6 flex items-center justify-center">
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold mb-2">Belle image d&apos;une IA</h3>
+                  <p className="text-xl">déjà fournit</p>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-4">Comment ça marche ?</h3>
+                <p className="mb-2">Notre IA se découpe en 4 parties :</p>
+                <ol className="list-decimal pl-6 space-y-2">
+                  <li>IA récupère la musique que vous souhaitez transcrire.</li>
+                  <li>La musique est découpée en différentes pistes audio. Une piste audio est dédiée par instrument.</li>
+                  <li>Grâce à son immense base de données, l&apos;IA repère chaque changement de son et lui attribue une note/accord.</li>
+                  <li>L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique.</li>
+                </ol>
+                <p className="mt-4">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
+                <div className="mt-4">
+                  <button className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all duration-300">
+                    Voir nos réseaux
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
