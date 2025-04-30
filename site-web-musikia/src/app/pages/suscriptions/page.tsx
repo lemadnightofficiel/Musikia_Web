@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 const SubscriptionPage = () => {
   const [selectedPlan, setSelectedPlan] = useState<{ name: string; price: number; duration: string; } | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const plans = [
     { 
@@ -26,7 +27,7 @@ const SubscriptionPage = () => {
       duration: "1 mois", 
       color: "blue",
       icon: <FaRegCalendarAlt className="text-3xl mx-auto mb-4 text-blue-500" />,
-      popular: true  // Changé de false à true
+      popular: true
     },
     { 
       name: "Trimestriel", 
@@ -34,7 +35,7 @@ const SubscriptionPage = () => {
       duration: "3 mois", 
       color: "purple",
       icon: <FaRegCalendarAlt className="text-3xl mx-auto mb-4 text-purple-500" />,
-      popular: false  // Changé de true à false
+      popular: false
     },
     { 
       name: "Annuel", 
@@ -90,7 +91,11 @@ const SubscriptionPage = () => {
             <motion.div 
               key={index} 
               variants={itemVariants}
-              className={`relative bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-2 border ${plan.popular ? 'border-blue-500' : 'border-gray-100'}`}
+              className={`relative bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-300 
+                ${hoveredIndex === index ? 'scale-105 shadow-2xl border-2 border-blue-500' : 'border border-gray-100'} 
+                ${plan.popular && hoveredIndex !== index ? 'border-2 border-blue-500' : ''}`}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
               {plan.popular && (
                 <div className="absolute top-0 right-0 bg-blue-500 text-white px-3 py-1 rounded-bl-lg font-medium text-sm">
@@ -98,26 +103,26 @@ const SubscriptionPage = () => {
                 </div>
               )}
               <div className="p-6">
-                <div className="mb-4">
+                <div className="mb-4 text-center">
                   {plan.icon}
-                  <h2 className={`text-2xl font-bold mb-1 text-${plan.color}-600`}>{plan.name}</h2>
+                  <h2 className="text-2xl font-bold mb-1 text-gray-800">{plan.name}</h2>
                   <p className="text-sm mb-2 text-gray-500 font-medium">{plan.duration}</p>
                 </div>
 
-                <div className="mb-6 flex items-end">
+                <div className="mb-6 flex items-end justify-center">
                   <span className="text-4xl font-extrabold text-gray-900">{plan.price}€</span>
-                  {plan.name !== "Unitaire" && <span className="text-gray-500 ml-1 mb-1">/période</span>}
                 </div>
+
+                <div className="h-px bg-gray-200 my-6"></div>
                 
                 <button 
                   onClick={() => handlePlanSelection(plan)}
-                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                    plan.popular 
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                      : `bg-${plan.color}-100 hover:bg-${plan.color}-200 text-${plan.color}-700`
-                  }`}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 
+                    ${plan.popular || hoveredIndex === index 
+                      ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                 >
-                  Choisir ce plan
+                  {hoveredIndex === index ? 'Sélectionner' : 'Choisir ce plan'}
                 </button>
               </div>
             </motion.div>
