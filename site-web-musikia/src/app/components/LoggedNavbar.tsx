@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FaUser, FaFileAlt, FaChevronDown, FaChevronUp, FaSignOutAlt } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 

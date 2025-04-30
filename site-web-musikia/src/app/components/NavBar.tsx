@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter, usePathname } from 'next/navigation';
-import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import { FaUser, FaSignOutAlt, FaChevronDown, FaChevronUp, FaFileAlt } from "react-icons/fa";
 
 const navLinks = [
   { title: "Accueil", path: "/" },           
@@ -10,15 +10,101 @@ const navLinks = [
   { title: "Abonnements", path: "/pages/suscriptions" },
 ];
 
+const accountLinks = [
+  { title: "Mes informations", path: "/pages/account-info", icon: FaUser },
+  { title: "Mes transcriptions", path: "/pages/transcriptions", icon: FaFileAlt },
+];
+
+interface AccountMenuProps {
+  handleLogout: () => void;
+  isMobile?: boolean;
+}
+
+const AccountMenu: React.FC<AccountMenuProps> = ({ handleLogout, isMobile = false }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLinkClick = (path: string) => {
+    setIsOpen(false);
+    router.push(path);
+  };
+
+  if (isMobile) {
+    return (
+      <div className="py-2">
+        <button onClick={() => setIsOpen(!isOpen)} className="flex items-center w-full text-gray-300 hover:bg-gray-700 px-4 py-2 rounded transition duration-300">
+          <FaUser className="mr-2" />
+          Mon Compte
+          {isOpen ? <FaChevronUp className="ml-auto" /> : <FaChevronDown className="ml-auto" />}
+        </button>
+        {isOpen && (
+          <div className="pl-4 mt-2 space-y-2">
+            {accountLinks.map(({ title, path, icon: Icon }) => (
+              <button 
+                key={path} 
+                onClick={() => handleLinkClick(path)} 
+                className="flex items-center w-full text-gray-300 hover:bg-gray-700 px-4 py-2 rounded transition duration-300"
+              >
+                <Icon className="mr-2" />
+                {title}
+              </button>
+            ))}
+            <button 
+              onClick={handleLogout} 
+              className="flex items-center w-full text-gray-300 hover:bg-gray-700 px-4 py-2 rounded transition duration-300"
+            >
+              <FaSignOutAlt className="mr-2" />
+              Déconnexion
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+      >
+        <FaUser className="mr-2" />
+        Mon Compte
+        {isOpen ? <FaChevronUp className="ml-2" /> : <FaChevronDown className="ml-2" />}
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+          {accountLinks.map(({ title, path, icon: Icon }) => (
+            <Link 
+              key={path} 
+              href={path} 
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              onClick={() => setIsOpen(false)}
+            >
+              <Icon className="inline mr-2" />
+              {title}
+            </Link>
+          ))}
+          <button 
+            onClick={handleLogout} 
+            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          >
+            <FaSignOutAlt className="inline mr-2" />
+            Déconnexion
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  
   useEffect(() => {
-    
     const token = localStorage.getItem('authToken');
     if (token) {
       setIsAuthenticated(true);
@@ -33,13 +119,10 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    
     localStorage.removeItem('authToken');
     setIsAuthenticated(false);
-    
     router.push('/');
   };
-
   
   const handleLogin = () => {
     router.push('/pages/login');
@@ -60,13 +143,7 @@ const Navbar = () => {
               </Link>
             ))}
             {isAuthenticated ? (
-              <button 
-                onClick={handleLogout} 
-                className="flex items-center text-gray-800 bg-white hover:bg-gray-200 px-4 py-2 rounded transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-              >
-                <FaSignOutAlt className="mr-2" />
-                Se déconnecter
-              </button>
+              <AccountMenu handleLogout={handleLogout} />
             ) : (
               <button 
                 onClick={handleLogin} 
@@ -98,13 +175,7 @@ const Navbar = () => {
                   ))}
                   <li>
                     {isAuthenticated ? (
-                      <button 
-                        onClick={handleLogout} 
-                        className="block w-full py-3 px-4 text-left transition text-gray-300 hover:bg-gray-700"
-                      >
-                        <FaSignOutAlt className="inline mr-2" />
-                        Se déconnecter
-                      </button>
+                      <AccountMenu handleLogout={handleLogout} isMobile={true} />
                     ) : (
                       <Link href="/pages/login">
                         <button 
