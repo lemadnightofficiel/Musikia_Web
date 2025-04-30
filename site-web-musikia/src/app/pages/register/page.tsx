@@ -91,10 +91,7 @@ const RegisterPage = () => {
             </div>
             <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
               <option value="" disabled>Choisissez votre instrument</option>
-              <option value="Guitare">Guitare</option>
               <option value="Piano">Piano</option>
-              <option value="Batterie">Batterie</option>
-              <option value="Violon">Violon</option>
             </select>
             <button type="submit" className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300">
               S&apos;inscrire
