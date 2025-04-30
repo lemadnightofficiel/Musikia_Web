@@ -11,6 +11,7 @@ const SubscriptionPage = () => {
   const [selectedPlan, setSelectedPlan] = useState<{ name: string; price: number; duration: string; } | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [hoveredButton, setHoveredButton] = useState<number | null>(null);
 
   const plans = [
     { 
@@ -117,12 +118,14 @@ const SubscriptionPage = () => {
                 
                 <button 
                   onClick={() => handlePlanSelection(plan)}
+                  onMouseEnter={() => setHoveredButton(index)}
+                  onMouseLeave={() => setHoveredButton(null)}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 
-                    ${plan.popular || hoveredIndex === index 
+                    ${hoveredButton === index 
                       ? 'bg-blue-600 text-white hover:bg-blue-700' 
                       : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
                 >
-                  {hoveredIndex === index ? 'Sélectionner' : 'Choisir ce plan'}
+                  {hoveredButton === index ? 'Sélectionner' : 'Choisir ce plan'}
                 </button>
               </div>
             </motion.div>
