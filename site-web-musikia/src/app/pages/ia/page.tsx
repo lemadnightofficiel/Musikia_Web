@@ -118,18 +118,14 @@ const IAPage: React.FC = () => {
                   </button>
                 </div>
                 <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-                  <p className="text-black"><strong>Nom:</strong> {selectedFile.name}</p>
-                  <p className="text-black"><strong>Durée:</strong> {selectedFile.duration}</p>
+                  <p className="text-black"><strong>Nom :</strong> {selectedFile.name}</p>
+                  <p className="text-black"><strong>Durée :</strong> {selectedFile.duration}</p>
                   <audio controls className="w-full mt-2">
                     <source src={selectedFile.url} type="audio/mp3" />
                   </audio>
                 </div>
-                <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
-                  <FaDownload /> Télécharger toutes les partitions
-                </button>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
-                <h2 className="text-xl font-bold mb-4 text-black">Choisissez un instrument</h2>
                 {instruments.map((instrument) => (
                   <div key={instrument} className="mb-4 border-b pb-2">
                     <button
@@ -141,8 +137,8 @@ const IAPage: React.FC = () => {
                     </button>
                     {openInstrument === instrument && (
                       <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
-                        <p className="text-black"><strong>Partition pour:</strong> {instrument}</p>
-                        <p className="text-black"><strong>Fichier:</strong> {selectedFile.name}</p>
+                        <p className="text-black"><strong>Partition du :</strong> {instrument}</p>
+                        <p className="text-black"><strong>Fichier :</strong> {selectedFile.name}</p>
                         <audio controls className="w-full mt-2">
                           <source src={selectedFile.url} type="audio/mp3" />
                         </audio>
@@ -154,11 +150,7 @@ const IAPage: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
-                <FaDownload /> Télécharger la partitions
-              </button>
             </div>
-            
             <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12">
               <div>
                 <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
