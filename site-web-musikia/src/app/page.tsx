@@ -1,6 +1,7 @@
 import Footer from "./components/Footer";
 import Navbar from "./components/NavBar";
 import { Download, Zap, CheckCircle } from "lucide-react";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -18,9 +19,11 @@ export default function Home() {
               <h2 className="text-3xl font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-300">Musikia : késaco ?</h2>
               <p className="text-lg text-gray-600 hover:text-gray-800 transition-colors duration-300">Découvrez Musikia, l&apos;outil révolutionnaire de transformation musicale basé sur l&apos;intelligence artificielle. Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos fichiers audio en partitions précises. Fini les heures passées à transcrire manuellement : avec une précision exceptionnelle, notre technologie analyse vos mélodies pour les transformer en partitions claires et à vous de jouer !</p>
               <p className="text-lg text-gray-600 hover:text-gray-800 transition-colors duration-300">Ne perdez plus de temps, concentrez-vous sur l&apos;essentiel : la musique. Essayez Musikia dès aujourd&apos;hui et révolutionnez votre manière de jouer, d&apos;enseigner et de composer !</p>
-              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 hover:scale-105 transition-all duration-300">
-                Essayez maintenant
-              </button>
+              <Link href="pages/ia">
+                <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all">
+                  Essayez maintenant
+                </button>
+              </Link>
             </div>
             <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slideInRight">
               <img src="/images/intro/image_intro_1.png" alt="Illustration de conversion musicale" className="w-full rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]" />
@@ -57,10 +60,12 @@ export default function Home() {
                 <li className="hover:translate-x-1 transition-transform duration-300"><strong>Musiciens amateurs : </strong>Développez vos compétences sans effort et progressez plus rapidement grâce à des partitions claires et précises.</li>
                 <li className="hover:translate-x-1 transition-transform duration-300"><strong>Compositeurs : </strong>Transformez vos idées musicales en partitions exploitables en quelques secondes, pour ne jamais perdre l&apos;inspiration.</li>
               </ul>
-              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 hover:scale-105 transition-all duration-300">
-                Essayez maintenant
-              </button>
-            </div>
+              <Link href="pages/ia">
+                <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all">
+                  Essayez maintenant
+                </button>
+              </Link>
+          </div>
           </div>
           <div className="flex flex-col lg:flex-row items-center mt-32">
             <div className="lg:w-1/2 space-y-6 animate-slideInLeft">
@@ -72,10 +77,6 @@ export default function Home() {
                 <li className="hover:translate-x-1 transition-transform duration-300">Grâce à son immense base de données, l&apos;IA repère chaque changement de son et lui attribue une note/accord</li>
                 <li className="hover:translate-x-1 transition-transform duration-300">L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique</li>
               </ol>
-              <p className="text-lg text-gray-600 hover:text-gray-800 transition-colors duration-300">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
-              <button className="mt-6 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 hover:scale-105 transition-all duration-300">
-                En savoir plus
-              </button>
             </div>
             <div className="lg:w-1/2 mt-12 lg:mt-0 animate-slideInRight">
               <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]" />
@@ -83,7 +84,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-      
       <Footer />
     </section>
   );

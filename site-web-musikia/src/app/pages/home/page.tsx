@@ -1,4 +1,5 @@
 import { Download, Zap, CheckCircle } from "lucide-react";
+import Link from 'next/link';
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
 
@@ -18,9 +19,11 @@ export default function Home() {
               <h2 className="text-3xl font-semibold text-gray-800">Musikia : késaco ?</h2>
               <p className="text-lg text-gray-600">Découvrez Musikia, l&apos;outil révolutionnaire de transformation musicale basé sur l&apos;intelligence artificielle. Que vous soyez musicien, professeur ou passionné, Musikia vous permet de convertir facilement vos fichiers audio en partitions précises. Fini les heures passées à transcrire manuellement : avec une précision exceptionnelle, notre technologie analyse vos mélodies pour les transformer en partitions claires et à vous de jouer !</p>
               <p className="text-lg text-gray-600">Ne perdez plus de temps, concentrez-vous sur l&apos;essentiel : la musique. Essayez Musikia dès aujourd&apos;hui et révolutionnez votre manière de jouer, d&apos;enseigner et de composer !</p>
-              <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
-                Essayez maintenant
-              </button>
+              <Link href="pages/ia">
+                <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all">
+                  Essayez maintenant
+                </button>
+              </Link>
             </div>
             <div className="lg:w-1/2 mt-8 lg:mt-0">
               <img src="/images/intro/image_intro_1.png" alt="Illustration de conversion musicale" className="w-full rounded-xl shadow-lg" />
@@ -57,9 +60,11 @@ export default function Home() {
                 <li><strong>Musiciens amateurs : </strong>Développez vos compétences sans effort et progressez plus rapidement grâce à des partitions claires et précises.</li>
                 <li><strong>Compositeurs : </strong>Transformez vos idées musicales en partitions exploitables en quelques secondes, pour ne jamais perdre l&apos;inspiration.</li>
               </ul>
-              <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
-                Essayez maintenant
-              </button>
+              <Link href="pages/ia">
+                <button className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all">
+                  Essayez maintenant
+                </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col lg:flex-row items-center mt-16">
@@ -72,10 +77,6 @@ export default function Home() {
                 <li>Grâce à son immense base de données, l&apos;IA repère chaque changement de son et lui attribue une note/accord</li>
                 <li>L&apos;IA écrit ses résultats sous forme de partition. Une partition est générée pour chaque instrument présent dans la musique</li>
               </ol>
-              <p className="text-lg text-gray-600">Si vous souhaitez en savoir plus, vous pouvez consulter nos articles sur le fonctionnement de Musikia.</p>
-              <button className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition-all">
-                NaN
-              </button>
             </div>
             <div className="lg:w-1/2 lg:ml-90">
               <img src="/images/intro/image_intro_3.png" alt="Illustration de conversion musicale" className="w-full rounded-xl" />
