@@ -4,7 +4,7 @@ import '../../globals.css'
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/NavBar";
 import React, { useState, useEffect } from "react";
-import { FaTrash, FaDownload, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaTrash, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 interface SelectedFile {
   name: string;
@@ -137,14 +137,8 @@ const IAPage: React.FC = () => {
                     </button>
                     {openInstrument === instrument && (
                       <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
-                        <p className="text-black"><strong>Partition du :</strong> {instrument}</p>
-                        <p className="text-black"><strong>Fichier :</strong> {selectedFile.name}</p>
-                        <audio controls className="w-full mt-2">
-                          <source src={selectedFile.url} type="audio/mp3" />
-                        </audio>
-                        <button className="flex items-center gap-2 mt-4 bg-green-500 text-white px-4 py-2 rounded shadow hover:bg-green-600 transition">
-                          <FaDownload /> Télécharger la partition
-                        </button>
+                        {/* Remplacement du bouton par un message d'erreur */}
+                        <p className="text-red-600 font-semibold">Pas de partition trouvée</p>
                       </div>
                     )}
                   </div>
