@@ -15,7 +15,7 @@ interface SelectedFile {
 const IAPage: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<SelectedFile | null>(null);
   const [openInstrument, setOpenInstrument] = useState<string | null>(null);
-  const instruments: string[] = ["Piano", "Voix", "Guitare (accompagnement)","Guitare (solo)", "Basse", "Batterie", "Kazou"];
+  const instruments: string[] = ["Piano"];
   
   const processFile = (file: File) => {
     const objectUrl = URL.createObjectURL(file);
@@ -124,7 +124,7 @@ const IAPage: React.FC = () => {
                 </audio>
               </div>
               <button className="w-full flex items-center justify-center gap-2 mt-6 bg-green-500 text-white px-4 py-3 rounded shadow hover:bg-green-600 transition">
-                <FaDownload /> Télécharger toutes les partitions
+                <FaDownload /> Télécharger la partitions
               </button>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
