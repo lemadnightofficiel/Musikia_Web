@@ -133,7 +133,7 @@ const Navbar = () => {
       <nav className="container mx-auto px-4 py-4 md:py-6">
         <section className="flex flex-col md:flex-row items-center justify-between">
         <Link href="/" className="mb-4 md:mb-0 transform hover:scale-105 transition-all duration-300">
-          <img src="/images/logo.png" alt="Logo Musikia" className="w-24 md:w-32 h-auto" />
+          <img src="/images/logo.png" alt="Logo Musikia" className="w-16 md:w-22 h-auto" />
         </Link>
           <h1 className="hidden md:block text-3xl md:text-4xl text-[var(--h1-color)] font-bold mb-4 md:mb-0 transition-all duration-300 hover:text-blue-400">Musikia</h1>
           <div className="hidden md:flex items-center space-x-16">
