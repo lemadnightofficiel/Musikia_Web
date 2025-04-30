@@ -137,7 +137,6 @@ const IAPage: React.FC = () => {
                     </button>
                     {openInstrument === instrument && (
                       <div className="mt-2 p-4 bg-gray-100 rounded-lg shadow-md transition-all duration-300 ease-in-out">
-                        {/* Remplacement du bouton par un message d'erreur */}
                         <p className="text-red-600 font-semibold">Pas de partition trouvée</p>
                       </div>
                     )}

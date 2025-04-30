@@ -132,9 +132,9 @@ const Navbar = () => {
     <header className="z-50 bg-gray-700 shadow-lg fixed top-0 left-0 right-0">
       <nav className="container mx-auto px-4 py-4 md:py-6">
         <section className="flex flex-col md:flex-row items-center justify-between">
-          <Link href="/" className="text-2xl md:text-3xl text-white font-bold hover:text-gray-300 transition-all duration-300 transform hover:scale-105 mb-4 md:mb-0">
-            LOGO
-          </Link>
+        <Link href="/" className="mb-4 md:mb-0 transform hover:scale-105 transition-all duration-300">
+          <img src="/images/logo.png" alt="Logo Musikia" className="w-24 md:w-32 h-auto" />
+        </Link>
           <h1 className="hidden md:block text-3xl md:text-4xl text-[var(--h1-color)] font-bold mb-4 md:mb-0 transition-all duration-300 hover:text-blue-400">Musikia</h1>
           <div className="hidden md:flex items-center space-x-16">
             {navLinks.map(({ title, path }) => (
