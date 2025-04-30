@@ -18,25 +18,37 @@ const RegisterPage = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
-  const [showPasswordRequirements, setShowPasswordRequirements] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  const isPasswordValid = (password: string) => {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    return regex.test(password);
+  };
+
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    setPasswordMatch(e.target.value === confirmPassword);
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordMatch(newPassword === confirmPassword);
   };
 
   const handleConfirmPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(e.target.value);
-    setPasswordMatch(e.target.value === password);
+    const newConfirmPassword = e.target.value;
+    setConfirmPassword(newConfirmPassword);
+    setPasswordMatch(password === newConfirmPassword);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!isPasswordValid(password)) {
+      setError("Le mot de passe ne respecte pas les critères de sécurité.");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setPasswordMatch(false);
+      setError("Les mots de passe ne correspondent pas.");
       return;
     }
 
@@ -51,7 +63,6 @@ const RegisterPage = () => {
       setSuccessMessage(null);
     } else {
       console.log('Inscription réussie:', data);
-     
       localStorage.setItem('authToken', data.session?.access_token || 'dummy-token');
       setSuccessMessage('Inscription réussie !');
       setError(null);
@@ -68,20 +79,42 @@ const RegisterPage = () => {
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           {successMessage && <p className="text-green-500 text-center mb-4">{successMessage}</p>}
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <input type="email" placeholder="Email" className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-            <div className="relative mb-4">
-              <input type={showPassword ? "text" : "password"} placeholder="Mot de passe" className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500" required value={password} onChange={handlePasswordChange} onFocus={() => setShowPasswordRequirements(true)} onBlur={() => setShowPasswordRequirements(false)}/>
+            <input
+              type="email"
+              placeholder="Email"
+              className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <div className="relative mb-2">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Mot de passe"
+                className="border border-gray-300 rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                required
+                value={password}
+                onChange={handlePasswordChange}
+              />
               <button type="button" className="absolute right-3 top-3" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
-            {showPasswordRequirements && (
+            {password && !isPasswordValid(password) && (
               <p className="text-red-500 text-sm mb-2">
                 Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.
               </p>
             )}
             <div className="relative mb-4">
-              <input type={showConfirmPassword ? "text" : "password"} placeholder="Confirmer le mot de passe" className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`} required value={confirmPassword} onChange={handleConfirmPasswordChange}/>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirmer le mot de passe"
+                className={`border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 ${passwordMatch ? 'border-gray-300' : 'border-red-500'}`}
+                required
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+              />
               {!passwordMatch && (
                 <p className="text-red-500 text-sm">Les mots de passe ne correspondent pas.</p>
               )}
@@ -89,11 +122,19 @@ const RegisterPage = () => {
                 {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
               </button>
             </div>
-            <select value={instrument} onChange={(e) => setInstrument(e.target.value)} className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+            <select
+              value={instrument}
+              onChange={(e) => setInstrument(e.target.value)}
+              className="border border-gray-300 rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              required
+            >
               <option value="" disabled>Choisissez votre instrument</option>
               <option value="Piano">Piano</option>
             </select>
-            <button type="submit" className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300">
+            <button
+              type="submit"
+              className="bg-[var(--btn-bg)] text-[var(--btn-text)] hover:bg-[var(--btn-hover)] py-2 px-4 rounded transition duration-300"
+            >
               S&apos;inscrire
             </button>
           </form>
